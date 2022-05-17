@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "246050780513",
+    "project_id": "flutter-away-cde1f",
+    "storage_bucket": "flutter-away-cde1f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:246050780513:android:a46267bc522076d0d78120",
+        "android_client_info": {
+          "package_name": "com.example.test_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "246050780513-np2bn78bh0iebf309e36jgs27hsqnunb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHMqxkwh305jRsvB2zkOoyGLWzfaHFSoM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "246050780513-np2bn78bh0iebf309e36jgs27hsqnunb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
