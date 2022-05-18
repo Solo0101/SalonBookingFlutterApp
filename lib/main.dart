@@ -2,44 +2,34 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test_project/Shared/router-constants.dart';
 import 'package:test_project/Shared/router.dart';
 import 'package:test_project/contents_page.dart';
+import 'package:test_project/managers/authentication_manager.dart';
 
 //import 'managers/authentication_manager.dart';
 
 Future<void> main() async {
 	WidgetsFlutterBinding.ensureInitialized();
-	runApp(const MyApp());
 	await Firebase.initializeApp();
+	SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
+	runApp(MyApp(sharedPrefs: sharedPrefs));
 }
 
 class MyApp extends StatelessWidget {
-	const MyApp({Key? key}) : super(key: key);
+	SharedPreferences sharedPrefs;
+	MyApp({required this.sharedPrefs});
 
 	@override
 	Widget build(BuildContext context) {
 		return MaterialApp(
-				title: 'Home Page',
-				theme: ThemeData.dark(
+			home: AuthenticationManager().isLoggedIn(sharedPrefs)
+			? const MainPage(title: 'Main Page')
+			: const MyHomePage(title: 'Home page'),
+			theme: ThemeData.dark(
 		),
-		initialRoute: HomeViewRoute,
 		onGenerateRoute:  RouteGenerator.generateRoute,
-
-			/*MultiProvider(
-			providers: [
-				Provider<AuthenticationManager?>(
-						create: (_) => AuthenticationManager(FirebaseAuth.instance),
-				),
-				StreamProvider(create: (context) => context.read<AuthenticationManager?>()?.authStateChanges, initialData: null,),
-			],
-			child: MaterialApp(
-				title: 'Home Page',
-				theme: ThemeData.dark(
-				),
-				home: const AuthenticationWrapper(),
-				onGenerateRoute:  RouteGenerator.generateRoute,
-			),*/
 		);
 	}
 }

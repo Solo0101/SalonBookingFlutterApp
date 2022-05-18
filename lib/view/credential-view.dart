@@ -86,7 +86,6 @@ class _LoginOrSignUpScreen extends State<CredentialView> {
             SnackBar snackBar = SnackBar(content: Text(snackText));
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
             if(isValid == true) {
-
               Navigator.of(context).pushNamed(MainPageRoute);
             }
         },
