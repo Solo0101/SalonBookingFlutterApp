@@ -11,13 +11,13 @@ class RouteGenerator {
 
     switch (settings.name) {
       case HomeViewRoute:
-        return MaterialPageRoute(builder: (_) => const MyHomePage(title: 'My home page!'));
+        return MaterialPageRoute(builder: (_) => const MyHomePage());
       case LoginViewRoute:
         return MaterialPageRoute(builder: (_) => const LoginPage(title: 'Login Page'));
       case RegisterViewRoute:
         return MaterialPageRoute(builder: (_) => const RegisterPage(title: 'Register Page'));
       case MainPageRoute:
-        return MaterialPageRoute(builder: (_) => const MainPage(title: 'Main Page'));
+        return MaterialPageRoute(builder: (_) => const MainPage());
         ///Add new cases with routes HERE!!!!!!!
       default:
         return _errorRoute();

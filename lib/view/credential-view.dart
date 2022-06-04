@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:test_project/Shared/router-constants.dart';
 import 'package:test_project/managers/authentication_manager.dart';
@@ -26,8 +24,6 @@ class CredentialView extends StatefulWidget {
 }
 
 class _LoginOrSignUpScreen extends State<CredentialView> {
-  String _email="";
-  String _password="";
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -48,41 +44,24 @@ class _LoginOrSignUpScreen extends State<CredentialView> {
         ),
         if(!widget.isSignUpScreen) setSubtitlesForLogInView(),
         const SizedBox(height: 45),
-        const Text(
-            'Email',
-            textAlign: TextAlign.left,
-            style: TextStyle(
-              color: Colors.grey,
-            ),
-          ),
         TextField(
-          onChanged: (newValue){
-            _email=newValue;
-          },
+          controller: emailController,
+          cursorColor: Colors.white,
+          textInputAction: TextInputAction.next,
+          decoration: const InputDecoration(labelText: 'Email'),
         ),
         const SizedBox(height: 45),
-        const Text(
-          'Password',
-          textAlign: TextAlign.left,
-          style: TextStyle(
-            color: Colors.grey,
-          ),
-        ),
         TextField(
           //obscureText: true,
-          onChanged: (newValue){
-            _password=newValue;
-          },
+          controller: passwordController,
+          cursorColor: Colors.white,
+          textInputAction: TextInputAction.next,
+          decoration: const InputDecoration(labelText: 'Password'),
         ),
         const SizedBox(height: 50),
         TextButton(
           onPressed: () async {
-           /* context.read<AuthenticationManager>().logInUser(
-                email: emailController.text.trim(),
-                password: passwordController.text.trim()
-            ); */
-            bool isValid = await validateFields(_email, _password);
-            print(isValid);
+            bool isValid = await validateFields(emailController.text.trim(), passwordController.text.trim());
             SnackBar snackBar = SnackBar(content: Text(snackText));
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
             if(isValid == true) {
@@ -133,25 +112,23 @@ class _LoginOrSignUpScreen extends State<CredentialView> {
       ],
     );
   }
-  Future<bool> authenticateUser(String email, String password){
+  Future<bool> authenticateUser(String email, String password) async{
     AuthenticationManager authenticationManager = AuthenticationManager();
     if(widget.isSignUpScreen){
-      return (authenticationManager.signUpUser(email, password));
+      return (authenticationManager.signUpUser(email, password, context));
     }else{
-      return (authenticationManager.logInUser(email, password));
+      return (authenticationManager.logInUser(email, password, context));
     }
   }
 
-  Future<bool> validateFields(String email, String password){
-    if(_email.isNotEmpty && _password.isNotEmpty){
-      return authenticateUser(email, password);
+  Future<bool> validateFields(String email, String password) async{
+    if(emailController.text.trim().isNotEmpty && passwordController.text.trim().isNotEmpty){
+      return await authenticateUser(email, password);
     }else{
-    //if(_email.isEmpty || _password.isEmpty){
       SnackBar snackBar = const SnackBar(content: Text("Email and password required!"));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
       return Future.value(false);
     }
-   //return false;
   }
 }
 
