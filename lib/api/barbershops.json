@@ -4,11 +4,7 @@
       "id": 1,
       "Name": "Barbershop",
       "gender": "man",
-      "address": {
-        "streetAddress": "Str. Piața Victoriei",
-        "numberAddress": "Nr. 7",
-        "city": "Timișoara"
-      },
+      "address": "Str. Piața Victoriei, Nr. 7, Timișoara",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
       "phoneNumber": "0738362762",
       "image": "http://www.agerpres.ro/data/stiri_ots/2019/05/03/pasi-necesari-pentru-a-deschide-un-barbershop.jpg"
@@ -17,11 +13,7 @@
       "id": 2,
       "Name": "Barbershop2",
       "gender": "man",
-      "address": {
-        "streetAddress": "Str. Piața Victoriei",
-        "numberAddress": "Nr. 7",
-        "city": "Timișoara"
-      },
+        "address": "Str. Piața Victoriei, Nr. 7, Timișoara",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
       "phoneNumber": "0738362762",
       "image": "http://www.agerpres.ro/data/stiri_ots/2019/05/03/pasi-necesari-pentru-a-deschide-un-barbershop.jpg"
@@ -30,11 +22,7 @@
       "id": 3,
       "Name": "Barbershop3",
       "gender": "man",
-      "address": {
-        "streetAddress": "Str. Piața Victoriei",
-        "numberAddress": "Nr. 7",
-        "city": "Timișoara"
-      },
+      "address": "Str. Piața Victoriei, Nr. 7, Timișoara",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
       "phoneNumber": "0738362762",
       "image": "http://www.agerpres.ro/data/stiri_ots/2019/05/03/pasi-necesari-pentru-a-deschide-un-barbershop.jpg"
