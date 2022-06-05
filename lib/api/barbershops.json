@@ -9,12 +9,7 @@
       "city": "Timișoara"
     },
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    "phoneNumbers": [
-      {
-        "type": "home",
-        "number": "7383627627"
-      }
-    ],
+    "phoneNumber": "0738362762",
     "image": "http://www.agerpres.ro/data/stiri_ots/2019/05/03/pasi-necesari-pentru-a-deschide-un-barbershop.jpg"
   },
 
@@ -28,12 +23,7 @@
       "city": "Timișoara"
     },
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    "phoneNumbers": [
-      {
-        "type": "home",
-        "number": "7383627627"
-      }
-    ],
+    "phoneNumber": "0738362762",
     "image": "http://www.agerpres.ro/data/stiri_ots/2019/05/03/pasi-necesari-pentru-a-deschide-un-barbershop.jpg"
   },
 
@@ -47,12 +37,7 @@
       "city": "Timișoara"
     },
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    "phoneNumbers": [
-      {
-        "type": "home",
-        "number": "7383627627"
-      }
-    ],
+    "phoneNumber": "0738362762",
     "image": "http://www.agerpres.ro/data/stiri_ots/2019/05/03/pasi-necesari-pentru-a-deschide-un-barbershop.jpg"
   }
 
