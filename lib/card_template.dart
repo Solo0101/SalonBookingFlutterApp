@@ -1,30 +1,42 @@
 import 'package:flutter/material.dart';
 
-class CardTemplate extends StatelessWidget {
-  const CardTemplate({Key? key, required this.name, required this.address, required this.description, required this.presentationImage}) : super(key: key);
+class CardTemplate extends StatefulWidget {
+  const CardTemplate({Key? key, required this.pressed, required this.id, required this.name, required this.address, required this.description, required this.presentationImage}) : super(key: key);
 
+  final List<bool> pressed;
+  final int id;
   final String name;
   final String address;
   final String description;
   final String presentationImage;
 
   @override
-  Widget build(BuildContext context) {
+  State<CardTemplate> createState() => _CardTemplateState();
+}
 
+class _CardTemplateState extends State<CardTemplate> {
+  @override
+  Widget build(BuildContext context) {
     return SizedBox(
-      height: 450,
       child: Card(
         clipBehavior: Clip.antiAlias,
         child: Column(
           children: [
             ListTile(
-              leading: const Icon(Icons.arrow_drop_down_circle),
-              title: Text(name),
-              subtitle: Text(address, style: TextStyle(color: Colors.white.withOpacity(0.6))),
+              leading: IconButton(
+                onPressed: () =>  setState( () => widget.pressed[widget.id-1] = !widget.pressed[widget.id-1]),
+                icon:  Icon(widget.pressed[widget.id-1] ? Icons.arrow_drop_up_sharp : Icons.arrow_drop_down_sharp ),
+              ),
+              title: Text(widget.name),
+              subtitle: Text(widget.address, style: TextStyle(color: Colors.white.withOpacity(0.6))),
             ),
             Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(description, style: TextStyle(color: Colors.white.withOpacity(0.6))),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Visibility(
+                  child: Text(widget.description, style: TextStyle(color: Colors.white.withOpacity(0.6))),
+                  visible: widget.pressed[widget.id-1],
+                  replacement: const SizedBox.shrink(),
+                )
             ),
             ButtonBar(
               alignment: MainAxisAlignment.start,
@@ -42,9 +54,7 @@ class CardTemplate extends StatelessWidget {
                   ),
                 ),
                 TextButton(
-                  style: ButtonStyle(
-                      backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.green)),
+                  style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.green)),
                   onPressed: () {
                     // Perform some action
                   },
@@ -56,10 +66,13 @@ class CardTemplate extends StatelessWidget {
               ],
             ),
             Image(
-              image: NetworkImage(presentationImage),
+              image: NetworkImage(widget.presentationImage),
+            ),
           ],
         ),
       ),
     );
   }
 }
+
+

@@ -6,26 +6,71 @@
       "gender": "man",
       "address": "Str. Piața Victoriei, Nr. 7, Timișoara",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "phoneNumber": "0738362762",
+      "phoneNumber": "0720949641",
       "image": "http://www.agerpres.ro/data/stiri_ots/2019/05/03/pasi-necesari-pentru-a-deschide-un-barbershop.jpg"
     },
     {
       "id": 2,
-      "Name": "Barbershop2",
-      "gender": "man",
-        "address": "Str. Piața Victoriei, Nr. 7, Timișoara",
+      "Name": "Supertuns",
+      "gender": "any",
+        "address": "Bd. Carol I, Nr. 15, Timișoara",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "phoneNumber": "0738362762",
-      "image": "http://www.agerpres.ro/data/stiri_ots/2019/05/03/pasi-necesari-pentru-a-deschide-un-barbershop.jpg"
+      "phoneNumber": "0720949641",
+      "image": "https://lh3.googleusercontent.com/p/AF1QipMGCoQ3GIIkcufCeb77rmmxwVTC9HPjMJdvp4pA=s1600-w400"
     },
     {
       "id": 3,
-      "Name": "Barbershop3",
+      "Name": "Hair Hood",
       "gender": "man",
-      "address": "Str. Piața Victoriei, Nr. 7, Timișoara",
+      "address": "Str. Matei Corvin, Nr. 1, Timișoara",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "phoneNumber": "0738362762",
-      "image": "http://www.agerpres.ro/data/stiri_ots/2019/05/03/pasi-necesari-pentru-a-deschide-un-barbershop.jpg"
+      "phoneNumber": "0720949641",
+      "image": "https://hairhood.ro/wp-content/uploads/2021/10/logo.png"
+    },
+    {
+      "id": 4,
+      "Name": "Breathless",
+      "gender": "any",
+      "address": "Str. Aristide Demetriade, Nr. 1, Timișoara",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "phoneNumber": "0720949641",
+      "image": "https://stailer.ro/files/B-DILTUOIR/S161130582684-thumb.jpg"
+    },
+    {
+      "id": 5,
+      "Name": "Be the Queen",
+      "gender": "women",
+      "address": "Str. Aurel Cosma, Nr. 8, Timișoara",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "phoneNumber": "0720949641",
+      "image": "https://www.bethequeen.ro/wp-content/uploads/2021/03/Salon-de-infrumusetare-Be-the-Queen-Timisoara-6.jpeg"
+    },
+    {
+      "id": 6,
+      "Name": "Hair Blast Studio",
+      "gender": "any",
+      "address": "Str. Simion Bărnuțiu, Nr. 16, Timișoara",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "phoneNumber": "0720949641",
+      "image": "https://lh5.googleusercontent.com/p/AF1QipNF2j6NnQeAMM-VOVZ-_LAeG5q0919gZpu1VXUt=w650-h486-k-no"
+    },
+    {
+      "id": 7,
+      "Name": "WestCut",
+      "gender": "any",
+      "address": "Str. Mihail Kogalniceanu, Nr. 17, Timișoara",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "phoneNumber": "0720949641",
+      "image": "data:image/jpeg;base64,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"
+    },
+    {
+      "id": 8,
+      "Name": "Raver's Cut",
+      "gender": "men",
+      "address": "Str.  Ciprian Porumbescu, Nr. 15, Timișoara",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "phoneNumber": "0720949641",
+      "image": "https://stailer.ro/files/B-ALZYWOYL/S161055470078-thumb.jpg"
     }
   ]
 }

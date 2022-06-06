@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:test_project/card_template.dart';
+import 'package:test_project/managers/api_manager.dart';
 import 'managers/authentication_manager.dart';
 
 
@@ -12,8 +13,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  dynamic dummyResponse = "frizerii.json";
-  List barbershops = dummyResponse;
   final user = FirebaseAuth.instance.currentUser!;
 
   @override
@@ -22,19 +21,42 @@ class _MainPageState extends State<MainPage> {
       appBar: AppBar(
         title: const Text('Home'),
       ),
-      body: ListView.builder(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        itemCount: barbershops.length,
-        itemBuilder: (context, index) {
-          var item = barbershops[index];
-          return CardTemplate(
-            name: item.name,
-            address: item.city + ', ' + item.streetAddress + ', ' + item.numberAddress,
-            description: item.description,
-            presentationImage:
-          );
-        },
+      body: FutureBuilder(
+        future: getBarbershops(),
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot){
+            if(snapshot.hasData){
+              var barbershops = snapshot.data;
+              return ListView.builder(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                itemCount: barbershops.length,
+                itemBuilder: (context, index) {
+                  var item = barbershops[index];
+                  List<bool> pressed = List.filled(barbershops.length, false, growable: false);
+                  return Container(
+                      margin: const EdgeInsets.only(bottom: 15),
+                      child: CardTemplate(
+                      pressed: pressed,
+                      id: item.id,
+                      name: item.name,
+                      address: item.address,
+                      description: item.description,
+                      presentationImage: item.image
+                  )
+                  );
+                },
+              );
+            }else{
+              return const Center(child: CircularProgressIndicator());
+            }
+       },
       ),
+
+
+
+
+
+
+
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -61,7 +83,6 @@ class _MainPageState extends State<MainPage> {
             ListTile(
               title: const Text('Settings'),
               onTap: () {
-                Navigator.pop(context);
                 Navigator.pop(context);
               },
             ),

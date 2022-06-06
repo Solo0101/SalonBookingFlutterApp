@@ -36,7 +36,6 @@ class AuthenticationManager {
         navigatorKey.currentState!.pop(context);
         snackText='Invalid email.';
         print('Invalid email.');
-        navigatorKey.currentState!.pop(context);
         return Future.value(false);
       } else if (e.code == 'wrong-password') {
         navigatorKey.currentState!.pop(context);
