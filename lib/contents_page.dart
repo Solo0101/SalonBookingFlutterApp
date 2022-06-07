@@ -4,7 +4,6 @@ import 'package:test_project/card_template.dart';
 import 'package:test_project/managers/api_manager.dart';
 import 'managers/authentication_manager.dart';
 
-
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
 
@@ -23,40 +22,33 @@ class _MainPageState extends State<MainPage> {
       ),
       body: FutureBuilder(
         future: getBarbershops(),
-        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot){
-            if(snapshot.hasData){
-              var barbershops = snapshot.data;
-              return ListView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                itemCount: barbershops.length,
-                itemBuilder: (context, index) {
-                  var item = barbershops[index];
-                  List<bool> pressed = List.filled(barbershops.length, false, growable: false);
-                  return Container(
-                      margin: const EdgeInsets.only(bottom: 15),
-                      child: CardTemplate(
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          if (snapshot.hasData) {
+            var barbershops = snapshot.data;
+            return ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              itemCount: barbershops.length,
+              itemBuilder: (context, index) {
+                var item = barbershops[index];
+                List<bool> pressed = List.filled(barbershops.length, false, growable: false);
+                return Container(
+                    margin: const EdgeInsets.only(bottom: 15),
+                    child: CardTemplate(
                       pressed: pressed,
                       id: item.id,
                       name: item.name,
                       address: item.address,
                       description: item.description,
-                      presentationImage: item.image
-                  )
-                  );
-                },
-              );
-            }else{
-              return const Center(child: CircularProgressIndicator());
-            }
-       },
+                      presentationImage: item.image,
+                      phoneNumber: item.phoneNumber,
+                    ));
+              },
+            );
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        },
       ),
-
-
-
-
-
-
-
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -78,6 +70,12 @@ class _MainPageState extends State<MainPage> {
               title: const Text('My Profile'),
               onTap: () {
                 print(user.email!);
+              },
+            ),
+            ListTile(
+              title: const Text('My Appointments'),
+              onTap: () {
+                Navigator.pop(context);
               },
             ),
             ListTile(

@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import '../View/credential-view.dart';
+import '../View/credential_view.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
             maxHeight: MediaQuery.of(context).size.height,
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 30.0),
             child: CredentialView(
               screenTitle: 'Log In',
               buttonTitle: 'Log In',

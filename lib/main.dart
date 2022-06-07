@@ -1,14 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:test_project/Shared/router-constants.dart';
+import 'package:test_project/Constants/router_constants.dart';
 import 'package:test_project/Shared/router.dart';
 import 'package:test_project/contents_page.dart';
 
 Future<void> main() async {
-	WidgetsFlutterBinding.ensureInitialized();
-	await Firebase.initializeApp();
-	runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(const MyApp());
 }
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -16,40 +16,37 @@ final navigatorKey = GlobalKey<NavigatorState>();
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-	@override
-	Widget build(BuildContext context) {
-		return MaterialApp(
-			navigatorKey: navigatorKey,
-			home: const MyHomePage(),
-			theme: ThemeData.dark(
-		),
-		onGenerateRoute:  RouteGenerator.generateRoute,
-		);
-	}
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      navigatorKey: navigatorKey,
+      home: const MyHomePage(),
+      theme: ThemeData.dark(),
+      onGenerateRoute: RouteGenerator.generateRoute,
+    );
+  }
 }
 
 class MyHomePage extends StatelessWidget {
-	const MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({Key? key}) : super(key: key);
 
-	@override
-	Widget build(BuildContext context) {
-		return Scaffold(
-			body: StreamBuilder<User?>(
-				stream: FirebaseAuth.instance.authStateChanges(),
-				builder: (context, snapshot) {
-					if(snapshot.connectionState == ConnectionState.waiting){
-						return const Center(child: CircularProgressIndicator());
-					}else if(snapshot.hasError) {
-						return const Center(child: Text('Something went wrong!'));
-					}else if(snapshot.hasData) {
-						return const MainPage();
-					}else{
-						return const LoginOrRegisterView();
-					}
-				}
-			)
-		);
-	}
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: StreamBuilder<User?>(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return const Center(child: Text('Something went wrong!'));
+              } else if (snapshot.hasData) {
+                return const MainPage();
+              } else {
+                return const LoginOrRegisterView();
+              }
+            }));
+  }
 }
 
 class LoginOrRegisterView extends StatelessWidget {
@@ -58,58 +55,55 @@ class LoginOrRegisterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-				appBar: AppBar(
-				title: const Text('Welcome back!'),
-					automaticallyImplyLeading: false,
-				),
-				body: Column(
-						crossAxisAlignment: CrossAxisAlignment.center,
-						mainAxisAlignment: MainAxisAlignment.center,
-						children: <Widget>[
-							Center(
-								child: ElevatedButton(
-									style: ElevatedButton.styleFrom(
-										primary: Colors.green,
-										onPrimary: Colors.white,
-										shadowColor: Colors.greenAccent,
-										elevation: 3,
-										shape: RoundedRectangleBorder(
-												borderRadius: BorderRadius.circular(32.0)),
-										minimumSize: const Size(160, 70),
-									),
-									child: const Text(
-										'Log In!',
-										style: TextStyle(fontSize: 23),
-									),
-									onPressed: () {
-										Navigator.of(context).pushNamed(LoginViewRoute);
-									},
-								),
-							),
-							const SizedBox(height: 30),
-							Center(
-								child: ElevatedButton(
-									style: ElevatedButton.styleFrom(
-										primary: Colors.transparent,
-										onPrimary: Colors.white,
-										elevation: 3,
-										shape: RoundedRectangleBorder(
-												borderRadius: BorderRadius.circular(32.0)),
-										minimumSize: const Size(160, 70),
-									),
-									child: const Text(
-										'Register',
-										style: TextStyle(fontSize: 23),
-									),
-									onPressed: () {
-										Navigator.of(context).pushNamed(RegisterViewRoute);
-									},
-								),
-							),
-						],
-				)
-		);
+        appBar: AppBar(
+          title: const Text('Welcome back!'),
+          automaticallyImplyLeading: false,
+        ),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Center(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.green,
+                  onPrimary: Colors.white,
+                  shadowColor: Colors.greenAccent,
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(32.0)),
+                  minimumSize: const Size(160, 70),
+                ),
+                child: const Text(
+                  'Log In!',
+                  style: TextStyle(fontSize: 23),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pushNamed(loginViewRoute);
+                },
+              ),
+            ),
+            const SizedBox(height: 30),
+            Center(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.transparent,
+                  onPrimary: Colors.white,
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(32.0)),
+                  minimumSize: const Size(160, 70),
+                ),
+                child: const Text(
+                  'Register',
+                  style: TextStyle(fontSize: 23),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pushNamed(registerViewRoute);
+                },
+              ),
+            ),
+          ],
+        ));
   }
 }
-
-

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'View/credential-view.dart';
+import 'View/credential_view.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -21,7 +19,7 @@ class _RegisterPageState extends State<RegisterPage> {
             maxHeight: MediaQuery.of(context).size.height,
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 30.0),
             child: CredentialView(
               screenTitle: 'Sign In',
               buttonTitle: 'Register',
@@ -33,4 +31,3 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 }
-

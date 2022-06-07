@@ -1,8 +1,11 @@
 # This is a generated file; do not edit or check into version control.
+file_picker=C:\\CobaltSign\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\file_picker-4.6.1\\
 firebase_auth=C:\\CobaltSign\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_auth-3.3.17\\
 firebase_auth_web=C:\\CobaltSign\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_auth_web-3.3.14\\
 firebase_core=C:\\CobaltSign\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_core-1.16.0\\
 firebase_core_web=C:\\CobaltSign\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_core_web-1.6.3\\
+flutter_plugin_android_lifecycle=C:\\CobaltSign\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\flutter_plugin_android_lifecycle-2.0.6\\
+maps_launcher=C:\\CobaltSign\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\maps_launcher-2.0.1\\
 path_provider_linux=C:\\CobaltSign\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\path_provider_linux-2.1.6\\
 path_provider_windows=C:\\CobaltSign\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\path_provider_windows-2.0.6\\
 shared_preferences=C:\\CobaltSign\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\shared_preferences-2.0.15\\
@@ -12,3 +15,10 @@ shared_preferences_linux=C:\\CobaltSign\\Flutter\\flutter\\.pub-cache\\hosted\\p
 shared_preferences_macos=C:\\CobaltSign\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\shared_preferences_macos-2.0.4\\
 shared_preferences_web=C:\\CobaltSign\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\shared_preferences_web-2.0.4\\
 shared_preferences_windows=C:\\CobaltSign\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\shared_preferences_windows-2.1.1\\
+url_launcher=C:\\CobaltSign\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\url_launcher-6.1.2\\
+url_launcher_android=C:\\CobaltSign\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\url_launcher_android-6.0.17\\
+url_launcher_ios=C:\\CobaltSign\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\url_launcher_ios-6.0.17\\
+url_launcher_linux=C:\\CobaltSign\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\url_launcher_linux-3.0.1\\
+url_launcher_macos=C:\\CobaltSign\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\url_launcher_macos-3.0.1\\
+url_launcher_web=C:\\CobaltSign\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\url_launcher_web-2.0.11\\
+url_launcher_windows=C:\\CobaltSign\\Flutter\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\url_launcher_windows-3.0.1\\
