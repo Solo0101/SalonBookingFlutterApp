@@ -102,9 +102,7 @@ class _LoginOrSignUpScreen extends State<CredentialView> {
               widget.isSignUpScreen
                   ? "" //"Connect with social!"
                   : "Don't have an account?",
-              style: TextStyle(
-                color: widget._textColor,
-                fontWeight: FontWeight.w500,
+              style: TextStyle(color: widget._textColor, fontWeight: FontWeight.w500,
               ),
               textAlign: TextAlign.end,
             ),
@@ -113,8 +111,7 @@ class _LoginOrSignUpScreen extends State<CredentialView> {
                 onPressed: () {
                   Navigator.of(context).pushNamed(registerViewRoute);
                 },
-                child: const Text("Sign Up!",
-                    style: TextStyle(color: Colors.green)),
+                child: const Text("Sign Up!",style: TextStyle(color: Colors.green)),
               ),
           ],
         ),

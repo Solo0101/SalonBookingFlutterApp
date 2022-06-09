@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:booking_calendar/booking_calendar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_project/managers/provider_manager.dart';
-import 'package:test_project/managers/state_manager.dart';
-import 'package:uuid/uuid.dart';
+
+import 'managers/database_manager.dart';
 
 late List<DateTimeRange> globalConverted = [];
 
@@ -42,12 +42,12 @@ class _AppointmentSelectionState extends ConsumerState<AppointmentSelection> {
 
   Stream<dynamic>? getBookingStreamAppointment({required DateTime end, required DateTime start}) => Stream.value([]);
 
-  Future<dynamic> uploadBookingAppointment({required BookingService newBooking, required currentBarbershopName}) async {
+  Future<dynamic> uploadBookingAppointment({required BookingService newBooking, required currentBarbershopName, required currentBarbershopAddress}) async {
     ///database write
     //print(currentBarbershopName);
-    insertData(user.uid, currentBarbershopName, newBooking.bookingStart, newBooking.bookingStart.add(const Duration(minutes: 30)));
+    insertData(user.uid, currentBarbershopName, currentBarbershopAddress, newBooking.bookingStart, newBooking.bookingStart.add(const Duration(minutes: 30)));
     converted.add(DateTimeRange(start: newBooking.bookingStart, end: newBooking.bookingEnd));
-    print('${newBooking.toJson()} has been uploaded');
+    //print('${newBooking.toJson()} has been uploaded');
   }
 
   List<DateTimeRange> converted = [];
@@ -63,8 +63,9 @@ class _AppointmentSelectionState extends ConsumerState<AppointmentSelection> {
   @override
   Widget build(BuildContext context) {
     final String currentBarbershopValue = ref.watch(currentBarbershopProvider);
+    final String currentAddressValue = ref.watch(currentAddressProvider);
     final List<DateTimeRange> currentBookedHoursValue = ref.watch(currentBookedHoursProvider);
-    final DateTime currentlySelectedDay = ref.watch(selectedDate);
+    //final DateTime currentlySelectedDay = ref.watch(selectedDate);
     //print(currentlySelectedDay);
     globalCurrentBarbershopName = currentBarbershopValue;
     globalConverted = currentBookedHoursValue;
@@ -80,6 +81,7 @@ class _AppointmentSelectionState extends ConsumerState<AppointmentSelection> {
           uploadBooking: uploadBookingAppointment,
           loadingWidget: const Center(child: CircularProgressIndicator(color: Color(0xFF1AB00A))),
           currentBarbershopValue: currentBarbershopValue,
+          currentAddressValue: currentAddressValue,
           availableHours: 8, //(DateTime.now().hour > 10 && currentlySelectedDay.day == DateTime.now().day) ? 8 - (DateTime.now().hour - 10) : 8
           startingHours: 10, //(DateTime.now().hour > 10 && currentlySelectedDay.day == DateTime.now().day) ? DateTime.now().hour+1 : 10
         ),
@@ -87,21 +89,6 @@ class _AppointmentSelectionState extends ConsumerState<AppointmentSelection> {
     );
   }
 
-  Future<void> insertData(String userId, String barbershopName, DateTime bookingTime, DateTime bookingEndTime) async {
-    final appointmentId = const Uuid().v5(Uuid.NAMESPACE_URL, barbershopName + bookingTime.millisecondsSinceEpoch.toString());
-    //if(appointmentId) {
-      try {
-        await databaseRef.child(appointmentId).set({
-          'userId': userId,
-          'barbershopName': barbershopName,
-          'bookingTime': bookingTime.millisecondsSinceEpoch,
-          'bookingEndTime': bookingEndTime.millisecondsSinceEpoch
-        });
-        print("Added to database");
-      } catch (e) {
-        print("Error! $e");
-      }
-    //}
-  }
+
 
 }

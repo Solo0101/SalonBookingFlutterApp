@@ -12,8 +12,9 @@ import 'managers/database_manager.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  deletePastAppointmentsFromDb();
 
-  Timer.periodic(const Duration(hours: 24), (Timer timer) {
+  Timer.periodic(const Duration(minutes: 31), (Timer timer) {
     deletePastAppointmentsFromDb();
     print("Deleted past appointments from Database!");
   });

@@ -4,22 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_project/constants/router_constants.dart';
 import 'package:test_project/managers/provider_manager.dart';
+import 'package:test_project/splash_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 
 import 'managers/database_manager.dart';
 
 class CardTemplate extends ConsumerStatefulWidget {
-  const CardTemplate(
-      {Key? key,
+  const CardTemplate({
+      Key? key,
       required this.pressed,
       required this.id,
       required this.name,
       required this.address,
       required this.description,
       required this.presentationImage,
-      required this.phoneNumber})
-      : super(key: key);
+      required this.phoneNumber
+  }): super(key: key);
 
   final List<bool> pressed;
   final int id;
@@ -48,6 +49,7 @@ class _CardTemplateState extends ConsumerState<CardTemplate> {
   Widget build(BuildContext context) {
     return SizedBox(
       child: Card(
+        elevation: 5,
         clipBehavior: Clip.antiAlias,
         child: Column(
           children: [
@@ -83,26 +85,13 @@ class _CardTemplateState extends ConsumerState<CardTemplate> {
                           MaterialStateProperty.all<Color>(Colors.green)),
                   onPressed: () async {
                     ref.read(currentBarbershopProvider.notifier).state = widget.name;
-                    bool loaded=false;
+                    ref.read(currentAddressProvider.notifier).state = widget.address;
+                    LoadingIndicatorDialog().show(context);
                     List<DateTimeRange> converted = [];
-                    Future<List<DateTimeRange>> generateBookedHours () async{
-                      databaseRef.get().then((snapshot) {
-                        final Map data = snapshot.value as Map;
-                        data.forEach((i, value) {
-                          if(value['barbershopName'] == widget.name){
-                            converted.add(DateTimeRange(start: DateTime.fromMillisecondsSinceEpoch(value['bookingTime']), end: DateTime.fromMillisecondsSinceEpoch(value['bookingEndTime'])));
-                            loaded=true;
-                          }
-                        });
-                      });
-                      return converted;
-                    }
-                    converted = await generateBookedHours();
-
+                    await getBarbershopAppointmentsData(widget.name, converted);
                     ref.read(currentBookedHoursProvider.notifier).state = converted;
-
-                      loaded ? Navigator.of(context).pushNamed(appointmentSelectionPageRoute) : Navigator.of(context).pushNamed(splashScreenPageRoute);
-
+                    LoadingIndicatorDialog().dismiss();
+                    Navigator.of(context).pushNamed(appointmentSelectionPageRoute);
                     },
                   child: const Text(
                     'Make an appointment',

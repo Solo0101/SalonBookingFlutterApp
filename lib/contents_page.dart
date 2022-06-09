@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:test_project/card_template.dart';
 import 'package:test_project/managers/api_manager.dart';
+import 'constants/router_constants.dart';
 import 'managers/authentication_manager.dart';
-import 'managers/database_manager.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -25,7 +25,7 @@ class _MainPageState extends State<MainPage> {
         future: getBarbershops(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasData) {
-            var barbershops = snapshot.data;
+            List<Barbershop> barbershops = snapshot.data;
             return ListView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               itemCount: barbershops.length,
@@ -77,7 +77,7 @@ class _MainPageState extends State<MainPage> {
             ListTile(
               title: const Text('My Appointments'),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.of(context).pushNamed(myAppointmentsPageRoute);
               },
             ),
             ListTile(

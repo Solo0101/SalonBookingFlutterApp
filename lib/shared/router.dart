@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:test_project/appointment_selection_page.dart';
 import 'package:test_project/contents_page.dart';
 import 'package:test_project/main.dart';
-import 'package:test_project/splash_screen.dart';
 import '../constants/router_constants.dart';
+import '../my_appointments_page.dart';
 import '../register_page.dart';
 import '../login_page.dart';
 
@@ -22,8 +22,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const MainPage());
       case appointmentSelectionPageRoute:
         return PageRouteBuilder(pageBuilder: (context, animation1, animation2) => const AppointmentSelection(),  transitionDuration: Duration.zero, reverseTransitionDuration: Duration.zero);
-      case splashScreenPageRoute:
-        return PageRouteBuilder(pageBuilder: (context, animation1, animation2) => const SplashScreen(),  transitionDuration: Duration.zero, reverseTransitionDuration: Duration.zero);
+      case myAppointmentsPageRoute:
+        return MaterialPageRoute(builder: (_) => const MyAppointments());
         ///Add new cases with routes HERE!!!!!!!
       default:
         return _errorRoute();
