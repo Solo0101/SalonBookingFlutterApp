@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:test_project/card_template.dart';
 import 'package:test_project/managers/api_manager.dart';
 import 'managers/authentication_manager.dart';
+import 'managers/database_manager.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -32,7 +33,7 @@ class _MainPageState extends State<MainPage> {
                 var item = barbershops[index];
                 List<bool> pressed = List.filled(barbershops.length, false, growable: false);
                 return Container(
-                    margin: const EdgeInsets.only(bottom: 15),
+                    margin: const EdgeInsets.only(top: 15),
                     child: CardTemplate(
                       pressed: pressed,
                       id: item.id,
@@ -45,10 +46,11 @@ class _MainPageState extends State<MainPage> {
               },
             );
           } else {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator(color: Color(0xFF1AB00A)));
           }
         },
       ),
+
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -61,7 +63,7 @@ class _MainPageState extends State<MainPage> {
                   builder: (context, snapshot) {
                     if (snapshot.hasData &&
                         snapshot.connectionState != ConnectionState.done) {
-                      return const CircularProgressIndicator();
+                      return const CircularProgressIndicator(color: Color(0xFF1AB00A));
                     }
                     return Text(user.email!);
                   },

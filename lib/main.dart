@@ -1,17 +1,27 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_project/Constants/router_constants.dart';
 import 'package:test_project/Shared/router.dart';
 import 'package:test_project/contents_page.dart';
+import 'dart:async';
+
+import 'managers/database_manager.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+
+  Timer.periodic(const Duration(hours: 24), (Timer timer) {
+    deletePastAppointmentsFromDb();
+    print("Deleted past appointments from Database!");
+  });
+
+  runApp(const ProviderScope(child: MyApp()));
 }
 
-final navigatorKey = GlobalKey<NavigatorState>();
+final navigatorKey = GlobalKey<NavigatorState>(); 
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -37,7 +47,7 @@ class MyHomePage extends StatelessWidget {
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator(color: Color(0xFF1AB00A)));
               } else if (snapshot.hasError) {
                 return const Center(child: Text('Something went wrong!'));
               } else if (snapshot.hasData) {

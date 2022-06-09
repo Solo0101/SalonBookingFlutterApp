@@ -1,9 +1,15 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_project/constants/router_constants.dart';
+import 'package:test_project/managers/provider_manager.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 
-class CardTemplate extends StatefulWidget {
+import 'managers/database_manager.dart';
+
+class CardTemplate extends ConsumerStatefulWidget {
   const CardTemplate(
       {Key? key,
       required this.pressed,
@@ -24,10 +30,12 @@ class CardTemplate extends StatefulWidget {
   final String phoneNumber;
 
   @override
-  State<CardTemplate> createState() => _CardTemplateState();
+  ConsumerState<CardTemplate> createState() => _CardTemplateState();
 }
 
-class _CardTemplateState extends State<CardTemplate> {
+
+class _CardTemplateState extends ConsumerState<CardTemplate> {
+
   Future<void> _makePhoneCall(String phoneNumber) async {
     final Uri launchUri = Uri(
       scheme: 'tel',
@@ -43,6 +51,7 @@ class _CardTemplateState extends State<CardTemplate> {
         clipBehavior: Clip.antiAlias,
         child: Column(
           children: [
+            const Padding(padding: EdgeInsets.only(top: 15)),
             ListTile(
               leading: IconButton(
                 onPressed: () => setState(() => widget.pressed[widget.id - 1] =
@@ -72,7 +81,29 @@ class _CardTemplateState extends State<CardTemplate> {
                   style: ButtonStyle(
                       backgroundColor:
                           MaterialStateProperty.all<Color>(Colors.green)),
-                  onPressed: () => Navigator.of(context).pushNamed(appointmentSelectionPageRoute),
+                  onPressed: () async {
+                    ref.read(currentBarbershopProvider.notifier).state = widget.name;
+                    bool loaded=false;
+                    List<DateTimeRange> converted = [];
+                    Future<List<DateTimeRange>> generateBookedHours () async{
+                      databaseRef.get().then((snapshot) {
+                        final Map data = snapshot.value as Map;
+                        data.forEach((i, value) {
+                          if(value['barbershopName'] == widget.name){
+                            converted.add(DateTimeRange(start: DateTime.fromMillisecondsSinceEpoch(value['bookingTime']), end: DateTime.fromMillisecondsSinceEpoch(value['bookingEndTime'])));
+                            loaded=true;
+                          }
+                        });
+                      });
+                      return converted;
+                    }
+                    converted = await generateBookedHours();
+
+                    ref.read(currentBookedHoursProvider.notifier).state = converted;
+
+                      loaded ? Navigator.of(context).pushNamed(appointmentSelectionPageRoute) : Navigator.of(context).pushNamed(splashScreenPageRoute);
+
+                    },
                   child: const Text(
                     'Make an appointment',
                     style: TextStyle(color: Colors.white),

@@ -10,20 +10,11 @@ class Address {
   late String numberAddress;
   late String city;
 
-  Address({required this.streetAddress, required this.numberAddress, required this.city});
-
-  String getStreetAddress(){
-    return streetAddress;
-  }
-
-  String getNumberAddress(){
-    return numberAddress;
-  }
-
-  String getCity(){
-    return city;
-  }
-
+  Address({
+    required this.streetAddress,
+    required this.numberAddress,
+    required this.city
+  });
 }
 
 class Barbershop {
@@ -35,45 +26,25 @@ class Barbershop {
   late String phoneNumber;
   late String image;
 
-  Barbershop({required this.id, required this.name, this.gender='any', required this.address, this.description='', required this.phoneNumber, required this.image});
-
-  int getId(){
-    return id;
-  }
-
-  String getName(){
-    return name;
-  }
-
-  String getGender(){
-    return gender;
-  }
-
-  String getAddress(){
-    return address;
-  }
-
-  String getDescription(){
-    return description;
-  }
-
-  String getPhoneNumber(){
-    return phoneNumber;
-  }
-
-  String getImage(){
-    return image;
-  }
+  Barbershop({
+    required this.id,
+    required this.name,
+    this.gender='any',
+    required this.address,
+    this.description='',
+    required this.phoneNumber,
+    required this.image
+  });
 
   factory Barbershop.fromJson(Map<String, dynamic> json) {
     return Barbershop(
-      id: json['id'],
-      name: json['Name'],
-      gender: json['gender'],
-      address: json['address'],
-      description: json['description'],
-      phoneNumber: json['phoneNumber'],
-      image: json['image']
+      id: json['id'] as int,
+      name: json['Name'] as String,
+      gender: json['gender'] as String,
+      address: json['address'] as String,
+      description: json['description'] as String,
+      phoneNumber: json['phoneNumber'] as String,
+      image: json['image'] as String
     );
   }
 }

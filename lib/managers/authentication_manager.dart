@@ -14,7 +14,7 @@ class AuthenticationManager {
     showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (context) => const Center(child: CircularProgressIndicator())
+        builder: (context) => const Center(child: CircularProgressIndicator(color: Color(0xFF1AB00A)))
     );
 
     try {
@@ -54,7 +54,7 @@ class AuthenticationManager {
     showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (context) => const Center(child: CircularProgressIndicator())
+        builder: (context) => const Center(child: CircularProgressIndicator(color: Color(0xFF1AB00A)))
     );
 
     try {
@@ -101,7 +101,7 @@ class AuthenticationManager {
     showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (context) => const Center(child: CircularProgressIndicator())
+        builder: (context) => const Center(child: CircularProgressIndicator(color: Color(0xFF1AB00A)))
     );
     try{
       navigatorKey.currentState!.popUntil((route) => route.isFirst);
