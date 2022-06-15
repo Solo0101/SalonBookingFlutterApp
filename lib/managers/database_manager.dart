@@ -27,7 +27,7 @@ Future<void> insertData(String userId, String barbershopName, String address, Da
   final appointmentId = const Uuid().v5(Uuid.NAMESPACE_URL, barbershopName + bookingTime.millisecondsSinceEpoch.toString());
   //if(appointmentId) {
   try {
-    await databaseRef.child(appointmentId).set({
+    await databaseRef.child("appointments/$appointmentId").set({
       'userId': userId,
       'barbershopName': barbershopName,
       'address': address,
@@ -42,7 +42,7 @@ Future<void> insertData(String userId, String barbershopName, String address, Da
 }
 
 Future<void> deletePastAppointmentsFromDb() async{
-  databaseRef.get().then((snapshot) {
+  databaseRef.child("appointments").get().then((snapshot) {
     final Map data = snapshot.value as Map;
     data.forEach((i, value) {
       if(DateTime.now().isAfter(DateTime.fromMillisecondsSinceEpoch(value['bookingEndTime']))){
@@ -52,8 +52,12 @@ Future<void> deletePastAppointmentsFromDb() async{
   });
 }
 
+Future<void> deleteAppointmentsWithId(String appointmentId) async{
+        databaseRef.child("appointments/$appointmentId").remove();
+}
+
 Future<List<DateTimeRange>> getBarbershopAppointmentsData (String barbershopName, List<DateTimeRange> converted) async{
-  await databaseRef.get().then((snapshot) {
+  await databaseRef.child("appointments").get().then((snapshot) {
     if(snapshot.value != null) {
       final Map data = snapshot.value as Map;
       data.forEach((i, value) {
@@ -71,7 +75,7 @@ Future<List<DateTimeRange>> getBarbershopAppointmentsData (String barbershopName
 Future<List<Appointment>> getUserAppointmentsData () async{
   final user = FirebaseAuth.instance.currentUser!;
   List<Appointment> myAppointments = [];
-  await databaseRef.get().then((snapshot) {
+  await databaseRef.child("appointments").get().then((snapshot) {
     if(snapshot.value != null) {
       final Map data = snapshot.value as Map;
       data.forEach((i, value) {

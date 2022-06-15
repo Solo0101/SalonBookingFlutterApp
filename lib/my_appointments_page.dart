@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_project/appointment_template.dart';
+import 'package:uuid/uuid.dart';
 
 import 'managers/database_manager.dart';
 
@@ -17,18 +18,23 @@ class MyAppointments extends StatelessWidget {
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.hasData) {
               List<Appointment> myAppointments = snapshot.data;
+              myAppointments.sort((a, b) => a.bookingTime.millisecondsSinceEpoch.compareTo(b.bookingTime.millisecondsSinceEpoch));
               return ListView.builder(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 itemCount: myAppointments.length,
                 itemBuilder: (context, index) {
                   Appointment item = myAppointments[index];
                   return Container(
+
                       margin: const EdgeInsets.only(top: 15),
                       child: AppointmentCard(
+                          appointmentId: const Uuid().v5(Uuid.NAMESPACE_URL, item.barbershopName + item.bookingTime.millisecondsSinceEpoch.toString()),
                           userId: item.userId,
                           barbershopName: item.barbershopName,
                           address: item.address,
                           bookingTime: item.bookingTime,
+                          appointmentsList: myAppointments,
+                          appointmentCurrentIndex: index,
                       )
                   );
                 },
