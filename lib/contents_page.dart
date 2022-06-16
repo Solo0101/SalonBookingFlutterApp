@@ -83,7 +83,7 @@ class _MainPageState extends State<MainPage> {
             ListTile(
               title: const Text('Settings'),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.of(context).pushNamed(settingsPageRoute);
               },
             ),
             ListTile(

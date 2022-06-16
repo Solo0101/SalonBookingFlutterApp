@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:test_project/Constants/router_constants.dart';
 import 'package:test_project/managers/authentication_manager.dart';
-
 import '../Constants/router_constants.dart';
+import '../main.dart';
 
 //import 'package:provider/provider.dart';
 
@@ -10,7 +10,7 @@ class CredentialView extends StatefulWidget {
   final String screenTitle;
   final String buttonTitle;
   final bool isSignUpScreen;
-  late final Color _textColor;
+  //late final Color _textColor;
 
   CredentialView({
     Key? key,
@@ -18,7 +18,7 @@ class CredentialView extends StatefulWidget {
     required this.buttonTitle,
     required this.isSignUpScreen,
   }) : super(key: key) {
-    _textColor = isSignUpScreen ? Colors.grey : Colors.white;
+    //_textColor = isSignUpScreen ? Colors.grey : Colors.white;
   }
 
   @override
@@ -41,7 +41,7 @@ class _LoginOrSignUpScreen extends State<CredentialView> {
           widget.screenTitle,
           style: const TextStyle(
             fontSize: 20.0,
-            color: Colors.white,
+            //color: Colors.white,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -49,7 +49,7 @@ class _LoginOrSignUpScreen extends State<CredentialView> {
         const SizedBox(height: 45),
         TextField(
           controller: emailController,
-          cursorColor: Colors.white,
+          cursorColor: themeNotifier.value == ThemeMode.light ? Colors.black : Colors.white,
           textInputAction: TextInputAction.next,
           decoration: const InputDecoration(labelText: 'Email'),
         ),
@@ -57,7 +57,7 @@ class _LoginOrSignUpScreen extends State<CredentialView> {
         TextField(
           obscureText: _isObscure,
           controller: passwordController,
-          cursorColor: Colors.white,
+          cursorColor: themeNotifier.value == ThemeMode.light ? Colors.black : Colors.white,
           textInputAction: TextInputAction.next,
           decoration: InputDecoration(
             labelText: 'Password',
@@ -102,8 +102,7 @@ class _LoginOrSignUpScreen extends State<CredentialView> {
               widget.isSignUpScreen
                   ? "" //"Connect with social!"
                   : "Don't have an account?",
-              style: TextStyle(color: widget._textColor, fontWeight: FontWeight.w500,
-              ),
+              style: const TextStyle(fontWeight: FontWeight.w500),
               textAlign: TextAlign.end,
             ),
             if (!widget.isSignUpScreen)

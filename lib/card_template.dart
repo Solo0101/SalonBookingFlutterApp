@@ -47,6 +47,7 @@ class _CardTemplateState extends ConsumerState<CardTemplate> {
 
   @override
   Widget build(BuildContext context) {
+
     return SizedBox(
       child: Card(
         elevation: 5,
@@ -65,14 +66,17 @@ class _CardTemplateState extends ConsumerState<CardTemplate> {
               title: Text(widget.name),
               subtitle: TextButton(
                   onPressed: () => MapsLauncher.launchQuery(widget.address),
-                  child: Text(widget.address,
-                      style: TextStyle(color: Colors.white.withOpacity(0.6)))),
+                  child: Text(
+                        widget.address,
+                        style: const TextStyle(color: Colors.grey),
+                      ),
+              ),
             ),
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Visibility(
                   child: Text(widget.description,
-                      style: TextStyle(color: Colors.white.withOpacity(0.6))),
+                      style: const TextStyle(color: Colors.grey)),
                   visible: widget.pressed[widget.id - 1],
                   replacement: const SizedBox.shrink(),
                 )),

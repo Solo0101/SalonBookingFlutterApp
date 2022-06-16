@@ -4,8 +4,8 @@ import 'package:uuid/uuid.dart';
 
 import 'managers/database_manager.dart';
 
-class MyAppointments extends StatelessWidget {
-  const MyAppointments({Key? key}) : super(key: key);
+class MyAppointmentsPage extends StatelessWidget {
+  const MyAppointmentsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

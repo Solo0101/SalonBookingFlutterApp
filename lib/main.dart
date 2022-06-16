@@ -8,6 +8,7 @@ import 'package:test_project/contents_page.dart';
 import 'dart:async';
 
 import 'managers/database_manager.dart';
+import 'managers/provider_manager.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,19 +23,79 @@ Future<void> main() async {
   runApp(const ProviderScope(child: MyApp()));
 }
 
-final navigatorKey = GlobalKey<NavigatorState>(); 
+final navigatorKey = GlobalKey<NavigatorState>();
 
-class MyApp extends StatelessWidget {
+final ValueNotifier<ThemeMode> themeNotifier = ValueNotifier(ThemeMode.system);
+
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+ DarkThemeProvider themeChangeProvider = DarkThemeProvider();
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentAppTheme();
+  }
+
+  void getCurrentAppTheme() async =>
+      themeChangeProvider.darkTheme = await themeChangeProvider.darkThemePreference.getTheme();
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      navigatorKey: navigatorKey,
-      home: const MyHomePage(),
-      theme: ThemeData.dark(),
-      onGenerateRoute: RouteGenerator.generateRoute,
+    return ValueListenableBuilder<ThemeMode>(
+        valueListenable: themeNotifier,
+        builder: (_, ThemeMode currentMode, __) {
+          return MaterialApp(
+            // Remove the debug banner
+            debugShowCheckedModeBanner: false,
+            navigatorKey: navigatorKey,
+            home: const MyHomePage(),
+            theme: ThemeData(primarySwatch: Colors.green),
+            darkTheme: ThemeData.dark(),
+            themeMode: currentMode,
+            onGenerateRoute: RouteGenerator.generateRoute,
+          );
+        });
+
+    /*
+    return ChangeNotifierProvider(
+        create: (_) {
+          return themeChangeProvider;
+        },
+        child: Consumer<DarkThemeProvider>(
+          builder: (BuildContext context, value, Widget child) {
+            return MaterialApp(
+                navigatorKey: navigatorKey,
+                home: const MyHomePage(),
+                theme: ThemeData.light(),
+                darkTheme: ThemeData.dark(),
+                onGenerateRoute: RouteGenerator.generateRoute
+            );
+          },
+        ),
     );
+
+
+    return MaterialApp(
+        navigatorKey: navigatorKey,
+        home: const MyHomePage(),
+        theme: ThemeData.light(),
+        darkTheme: ThemeData.dark(),
+        onGenerateRoute: RouteGenerator.generateRoute
+    );
+
+    */
+
   }
 }
 

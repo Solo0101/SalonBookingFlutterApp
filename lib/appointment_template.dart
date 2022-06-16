@@ -5,6 +5,7 @@ import 'package:maps_launcher/maps_launcher.dart';
 import 'package:test_project/my_appointments_page.dart';
 //import 'package:test_project/splash_screen.dart';
 
+import 'main.dart';
 import 'managers/database_manager.dart';
 
 class AppointmentCard extends StatelessWidget {
@@ -34,7 +35,7 @@ class AppointmentCard extends StatelessWidget {
       child: Card(
         child: Container(
           height: 100,
-          color: Colors.grey[700],
+          color: themeNotifier.value == ThemeMode.light ? Colors.grey[200] : Colors.grey[700],
           child: Row(
             children: [
               Expanded(
@@ -95,7 +96,7 @@ class AppointmentCard extends StatelessWidget {
                                     PageRouteBuilder(
                                       pageBuilder:
                                           (context, animation1, animation2) =>
-                                      const MyAppointments(),
+                                      const MyAppointmentsPage(),
                                       transitionDuration: Duration.zero,
                                       reverseTransitionDuration: Duration.zero,
                                     ),
