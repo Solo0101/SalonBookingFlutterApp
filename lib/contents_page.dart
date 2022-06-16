@@ -69,25 +69,73 @@ class _MainPageState extends State<MainPage> {
                   },
                 )),
             ListTile(
-              title: const Text('My Profile'),
+              title: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  Icon(
+                    Icons.manage_accounts,
+                    size: 24.0,
+                  ),
+                  SizedBox(
+                    width: 5
+                  ),
+                  Text('My Profile'),
+                ],
+              ),
               onTap: () {
                 Navigator.of(context).pushNamed(myProfilePageRoute);
               },
             ),
             ListTile(
-              title: const Text('My Appointments'),
+              title: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  Icon(
+                    Icons.calendar_month,
+                    size: 24.0,
+                  ),
+                  SizedBox(
+                      width: 5
+                  ),
+                  Text('My Appointments'),
+                ],
+              ),
               onTap: () {
                 Navigator.of(context).pushNamed(myAppointmentsPageRoute);
               },
             ),
             ListTile(
-              title: const Text('Settings'),
+              title: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  Icon(
+                    Icons.settings,
+                    size: 24.0,
+                  ),
+                  SizedBox(
+                      width: 5
+                  ),
+                  Text('Settings'),
+                ],
+              ),
               onTap: () {
                 Navigator.of(context).pushNamed(settingsPageRoute);
               },
             ),
             ListTile(
-              title: const Text('Sign Out'),
+              title: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  Icon(
+                    Icons.logout,
+                    size: 24.0,
+                  ),
+                  SizedBox(
+                      width: 5
+                  ),
+                  Text('Sign Out'),
+                ],
+              ),
               onTap: () async {
                 await AuthenticationManager().signOutUser(context);
                 SnackBar snackBar = const SnackBar(content: Text('Signed out!'));

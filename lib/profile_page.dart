@@ -19,6 +19,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
       TextEditingController();
   final TextEditingController newPasswordController = TextEditingController();
   bool _isObscure = true;
+  bool _isObscure2 = true;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +62,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                 ),
               ),
               TextField(
-                obscureText: _isObscure,
+                obscureText: _isObscure2,
                 controller: newPasswordController,
                 cursorColor: themeNotifier.value == ThemeMode.light
                     ? Colors.black
@@ -71,9 +72,9 @@ class _MyProfilePageState extends State<MyProfilePage> {
                   labelText: 'New Password',
                   suffixIcon: IconButton(
                     icon: Icon(
-                      _isObscure ? Icons.visibility_off : Icons.visibility,
+                      _isObscure2 ? Icons.visibility_off : Icons.visibility,
                     ),
-                    onPressed: () => setState(() => _isObscure = !_isObscure),
+                    onPressed: () => setState(() => _isObscure2 = !_isObscure2),
                   ),
                 ),
               ),

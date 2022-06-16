@@ -30,7 +30,9 @@ Future<void> main() async {
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
-final ValueNotifier<ThemeMode> themeNotifier = themePrefs.getBool("isDarkTheme")! ? ValueNotifier(ThemeMode.dark) : ValueNotifier(ThemeMode.light);
+final ValueNotifier<ThemeMode> themeNotifier = themePrefs.getBool("isDarkTheme") != null ?
+(themePrefs.getBool("isDarkTheme")! ? ValueNotifier(ThemeMode.dark) : ValueNotifier(ThemeMode.light))
+: ValueNotifier(ThemeMode.dark);
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
