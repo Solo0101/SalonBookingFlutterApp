@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test_project/Constants/router_constants.dart';
 import 'package:test_project/Shared/router.dart';
 import 'package:test_project/contents_page.dart';
@@ -9,9 +10,11 @@ import 'dart:async';
 
 import 'managers/database_manager.dart';
 
+SharedPreferences themePrefs = SharedPreferences as SharedPreferences;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  themePrefs = await SharedPreferences.getInstance();
   await Firebase.initializeApp();
   deletePastAppointmentsFromDb();
 
@@ -23,9 +26,11 @@ Future<void> main() async {
   runApp(const ProviderScope(child: MyApp()));
 }
 
+
+
 final navigatorKey = GlobalKey<NavigatorState>();
 
-final ValueNotifier<ThemeMode> themeNotifier = ValueNotifier(ThemeMode.system);
+final ValueNotifier<ThemeMode> themeNotifier = themePrefs.getBool("isDarkTheme")! ? ValueNotifier(ThemeMode.dark) : ValueNotifier(ThemeMode.light);
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
