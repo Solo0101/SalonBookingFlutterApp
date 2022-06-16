@@ -8,7 +8,7 @@ import 'package:test_project/contents_page.dart';
 import 'dart:async';
 
 import 'managers/database_manager.dart';
-import 'managers/provider_manager.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,20 +35,10 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
- DarkThemeProvider themeChangeProvider = DarkThemeProvider();
-
   @override
   void initState() {
     super.initState();
-    getCurrentAppTheme();
   }
-
-  void getCurrentAppTheme() async =>
-      themeChangeProvider.darkTheme = await themeChangeProvider.darkThemePreference.getTheme();
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -66,36 +56,6 @@ class _MyAppState extends State<MyApp> {
             onGenerateRoute: RouteGenerator.generateRoute,
           );
         });
-
-    /*
-    return ChangeNotifierProvider(
-        create: (_) {
-          return themeChangeProvider;
-        },
-        child: Consumer<DarkThemeProvider>(
-          builder: (BuildContext context, value, Widget child) {
-            return MaterialApp(
-                navigatorKey: navigatorKey,
-                home: const MyHomePage(),
-                theme: ThemeData.light(),
-                darkTheme: ThemeData.dark(),
-                onGenerateRoute: RouteGenerator.generateRoute
-            );
-          },
-        ),
-    );
-
-
-    return MaterialApp(
-        navigatorKey: navigatorKey,
-        home: const MyHomePage(),
-        theme: ThemeData.light(),
-        darkTheme: ThemeData.dark(),
-        onGenerateRoute: RouteGenerator.generateRoute
-    );
-
-    */
-
   }
 }
 

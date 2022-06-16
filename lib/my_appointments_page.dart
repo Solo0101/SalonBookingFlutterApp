@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:test_project/appointment_template.dart';
 import 'package:uuid/uuid.dart';
 
 import 'managers/database_manager.dart';
+
+final user = FirebaseAuth.instance.currentUser!;
 
 class MyAppointmentsPage extends StatelessWidget {
   const MyAppointmentsPage({Key? key}) : super(key: key);
@@ -14,7 +17,7 @@ class MyAppointmentsPage extends StatelessWidget {
         title:  const Text('My appointments')
       ),
       body: FutureBuilder(
-          future: getUserAppointmentsData(),
+          future: getUserAppointmentsData(user.uid),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.hasData) {
               List<Appointment> myAppointments = snapshot.data;
@@ -25,7 +28,6 @@ class MyAppointmentsPage extends StatelessWidget {
                 itemBuilder: (context, index) {
                   Appointment item = myAppointments[index];
                   return Container(
-
                       margin: const EdgeInsets.only(top: 15),
                       child: AppointmentCard(
                           appointmentId: const Uuid().v5(Uuid.NAMESPACE_URL, item.barbershopName + item.bookingTime.millisecondsSinceEpoch.toString()),

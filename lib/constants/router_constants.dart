@@ -6,3 +6,4 @@ const String appointmentSelectionPageRoute = 'appointment-selection';
 const String splashScreenPageRoute = 'splash-screen';
 const String myAppointmentsPageRoute = 'my-appointments';
 const String settingsPageRoute = 'settings';
+const String myProfilePageRoute = 'my-profile';

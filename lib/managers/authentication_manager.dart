@@ -31,23 +31,23 @@ class AuthenticationManager {
         navigatorKey.currentState!.pop(context);
         snackText='No user found for that email.';
         print('No user found for that email.');
-        return Future.value(false);
+        return false;
       } else if (e.code == 'invalid-email') {
         navigatorKey.currentState!.pop(context);
         snackText='Invalid email.';
         print('Invalid email.');
-        return Future.value(false);
+        return false;
       } else if (e.code == 'wrong-password') {
         navigatorKey.currentState!.pop(context);
         snackText='Wrong password provided for that user.';
         print('Wrong password provided for that user.');
-        return Future.value(false);
+        return false;
       }
     }
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
     snackText='Logged in!';
     print('Logged in!');
-    return Future.value(true);
+    return true;
   }
 
   Future<bool> signUpUser(String email, String password, var context) async {
@@ -110,4 +110,61 @@ class AuthenticationManager {
       print(e);
     }
   }
+
+  Future<void> changePassword(String email, String password, String newPassword, var context) async {
+  final user = _auth.currentUser!;
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const Center(child: CircularProgressIndicator(color: Color(0xFF1AB00A)))
+    );
+    try {
+      await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'wrong-password') {
+        navigatorKey.currentState!.pop(context);
+        snackText = 'Wrong password provided for that user.';
+        print('Wrong password provided for that user.');
+        return;
+      }
+    }
+    if(password == newPassword){
+      navigatorKey.currentState!.pop(context);
+      snackText = 'The new password has to be different from the old password!';
+      print('The new password has to be different from the old password!');
+    }else {
+      user.updatePassword(newPassword).then((_) {
+        print("Successfully changed password");
+      }).catchError((error) {
+        print("Password can't be changed" + error.toString());
+        //This might happen, when the wrong password is in, the user isn't found, or if the user hasn't logged in recently.
+      });
+      navigatorKey.currentState!.pop(context);
+      snackText = 'Password reseted successfully!';
+      print('Password reseted successfully!');
+    }
+  }
+
+  Future<void> deleteAccount(var context) async {
+    final user = _auth.currentUser!;
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const Center(child: CircularProgressIndicator(color: Color(0xFF1AB00A)))
+    );
+    try{
+      navigatorKey.currentState!.popUntil((route) => route.isFirst);
+      user.delete();
+      signOutUser(context);
+    } catch (e) {
+      print(e);
+    }
+    snackText = 'Account successfully deleted!';
+    print('Account successfully deleted!');
+  }
+
 }
+

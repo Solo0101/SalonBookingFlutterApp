@@ -5,13 +5,12 @@ import 'package:test_project/main.dart';
 import 'package:test_project/settings_page.dart';
 import '../constants/router_constants.dart';
 import '../my_appointments_page.dart';
+import '../profile_page.dart';
 import '../register_page.dart';
 import '../login_page.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    //final args = settings.arguments;
-
     switch (settings.name) {
       case homeViewRoute:
         return MaterialPageRoute(builder: (_) => const MyHomePage());
@@ -27,6 +26,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const MyAppointmentsPage());
       case settingsPageRoute:
         return MaterialPageRoute(builder: (_) => const SettingsPage());
+      case myProfilePageRoute:
+        return MaterialPageRoute(builder: (_) => const MyProfilePage());
         ///Add new cases with routes HERE!!!!!!!
       default:
         return _errorRoute();

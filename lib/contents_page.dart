@@ -71,7 +71,7 @@ class _MainPageState extends State<MainPage> {
             ListTile(
               title: const Text('My Profile'),
               onTap: () {
-                print(user.email!);
+                Navigator.of(context).pushNamed(myProfilePageRoute);
               },
             ),
             ListTile(

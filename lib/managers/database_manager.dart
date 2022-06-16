@@ -72,14 +72,13 @@ Future<List<DateTimeRange>> getBarbershopAppointmentsData (String barbershopName
   return converted;
 }
 
-Future<List<Appointment>> getUserAppointmentsData () async{
-  final user = FirebaseAuth.instance.currentUser!;
+Future<List<Appointment>> getUserAppointmentsData (String userId) async{
   List<Appointment> myAppointments = [];
   await databaseRef.child("appointments").get().then((snapshot) {
     if(snapshot.value != null) {
       final Map data = snapshot.value as Map;
       data.forEach((i, value) {
-        if (value['userId'] == user.uid) {
+        if (value['userId'] == userId) {
           Appointment aux = Appointment(
               barbershopName: value['barbershopName'],
               userId: value['userId'],
