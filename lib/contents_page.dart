@@ -66,12 +66,12 @@ class _MainPageState extends State<MainPage> {
                       return const CircularProgressIndicator(color: Color(0xFF1AB00A));
                     }
                     return Text(user.email!);
-                  },
+                  }, stream: null,
                 )),
             ListTile(
-              title: Row(
+              title: const Row(
                 mainAxisSize: MainAxisSize.min,
-                children: const [
+                children: [
                   Icon(
                     Icons.manage_accounts,
                     size: 24.0,
@@ -87,9 +87,9 @@ class _MainPageState extends State<MainPage> {
               },
             ),
             ListTile(
-              title: Row(
+              title: const Row(
                 mainAxisSize: MainAxisSize.min,
-                children: const [
+                children: [
                   Icon(
                     Icons.calendar_month,
                     size: 24.0,
@@ -105,9 +105,9 @@ class _MainPageState extends State<MainPage> {
               },
             ),
             ListTile(
-              title: Row(
+              title: const Row(
                 mainAxisSize: MainAxisSize.min,
-                children: const [
+                children: [
                   Icon(
                     Icons.settings,
                     size: 24.0,
@@ -123,9 +123,9 @@ class _MainPageState extends State<MainPage> {
               },
             ),
             ListTile(
-              title: Row(
+              title: const Row(
                 mainAxisSize: MainAxisSize.min,
-                children: const [
+                children: [
                   Icon(
                     Icons.logout,
                     size: 24.0,

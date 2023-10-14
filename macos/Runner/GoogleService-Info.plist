@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyC4OKP_yD_RGnwW_F8n2X1NmsTey-Ejevk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>246050780513</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.salonBookingFlutterApp.RunnerTests</string>
+	<key>PROJECT_ID</key>
+	<string>flutter-away-cde1f</string>
+	<key>STORAGE_BUCKET</key>
+	<string>flutter-away-cde1f.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:246050780513:ios:8d7e88bbab361155d78120</string>
+	<key>DATABASE_URL</key>
+	<string>https://flutter-away-cde1f-default-rtdb.europe-west1.firebasedatabase.app</string>
+</dict>
+</plist>
