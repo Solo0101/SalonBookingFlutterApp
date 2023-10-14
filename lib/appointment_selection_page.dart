@@ -42,9 +42,11 @@ class _AppointmentSelectionState extends ConsumerState<AppointmentSelection> {
 
   Stream<dynamic>? getBookingStreamAppointment({required DateTime end, required DateTime start}) => Stream.value([]);
 
-  Future<dynamic> uploadBookingAppointment({required BookingService newBooking, required currentBarbershopName, required currentBarbershopAddress}) async {
+  Future<dynamic> uploadBookingAppointment({required BookingService newBooking}) async {
     ///database write
     //print(currentBarbershopName);
+    String currentBarbershopName = ref.watch(currentBarbershopProvider);
+    String currentBarbershopAddress = ref.watch(currentAddressProvider);
     insertData(user.uid, currentBarbershopName, currentBarbershopAddress, newBooking.bookingStart, newBooking.bookingStart.add(const Duration(minutes: 30)));
     converted.add(DateTimeRange(start: newBooking.bookingStart, end: newBooking.bookingEnd));
     //print('${newBooking.toJson()} has been uploaded');
@@ -62,12 +64,9 @@ class _AppointmentSelectionState extends ConsumerState<AppointmentSelection> {
 
   @override
   Widget build(BuildContext context) {
-    final String currentBarbershopValue = ref.watch(currentBarbershopProvider);
-    final String currentAddressValue = ref.watch(currentAddressProvider);
     final List<DateTimeRange> currentBookedHoursValue = ref.watch(currentBookedHoursProvider);
     //final DateTime currentlySelectedDay = ref.watch(selectedDate);
     //print(currentlySelectedDay);
-    globalCurrentBarbershopName = currentBarbershopValue;
     globalConverted = currentBookedHoursValue;
     return Scaffold(
       appBar: AppBar(
@@ -80,10 +79,13 @@ class _AppointmentSelectionState extends ConsumerState<AppointmentSelection> {
           getBookingStream: getBookingStreamAppointment,
           uploadBooking: uploadBookingAppointment,
           loadingWidget: const Center(child: CircularProgressIndicator(color: Color(0xFF1AB00A))),
-          currentBarbershopValue: currentBarbershopValue,
-          currentAddressValue: currentAddressValue,
-          availableHours: 8, //(DateTime.now().hour > 10 && currentlySelectedDay.day == DateTime.now().day) ? 8 - (DateTime.now().hour - 10) : 8
-          startingHours: 10, //(DateTime.now().hour > 10 && currentlySelectedDay.day == DateTime.now().day) ? DateTime.now().hour+1 : 10
+          uploadingWidget: const Center(child: CircularProgressIndicator(color: Color(0xFF1AB00A))),
+          wholeDayIsBookedWidget: const Text('Sorry, for this day everything is booked!'),
+          startingDayOfWeek: StartingDayOfWeek.monday,
+          availableSlotTextStyle: TextStyle(),
+          selectedSlotTextStyle: TextStyle(),
+          bookedSlotTextStyle: TextStyle(),
+
         ),
       )
     );

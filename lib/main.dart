@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,7 +20,7 @@ Future<void> main() async {
       statusBarIconBrightness: Brightness.dark,
       statusBarColor: Colors.transparent));
   themePrefs = await SharedPreferences.getInstance();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   deletePastAppointmentsFromDb();
 
   Timer.periodic(const Duration(minutes: 31), (Timer timer) {
@@ -41,7 +42,7 @@ final ValueNotifier<ThemeMode> themeNotifier = themePrefs.getBool("isDarkTheme")
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
-  _MyAppState createState() => _MyAppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
@@ -109,8 +110,8 @@ class LoginOrRegisterView extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
-                  onPrimary: Colors.white,
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.green,
                   shadowColor: Colors.greenAccent,
                   elevation: 3,
                   shape: RoundedRectangleBorder(
@@ -130,8 +131,8 @@ class LoginOrRegisterView extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.transparent,
-                  onPrimary: Colors.white,
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.transparent,
                   elevation: 3,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(32.0)),
