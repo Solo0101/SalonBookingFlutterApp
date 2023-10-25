@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
@@ -25,7 +25,6 @@ class Appointment {
 
 Future<void> insertData(String userId, String barbershopName, String address, DateTime bookingTime, DateTime bookingEndTime) async {
   final appointmentId = const Uuid().v5(Uuid.NAMESPACE_URL, barbershopName + bookingTime.millisecondsSinceEpoch.toString());
-  //if(appointmentId) {
   try {
     await databaseRef.child("appointments/$appointmentId").set({
       'userId': userId,
@@ -38,7 +37,6 @@ Future<void> insertData(String userId, String barbershopName, String address, Da
   } catch (e) {
     print("Error! $e");
   }
-  //}
 }
 
 Future<void> deletePastAppointmentsFromDb() async{

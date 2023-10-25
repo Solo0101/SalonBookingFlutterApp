@@ -7,7 +7,7 @@ import 'package:test_project/managers/provider_manager.dart';
 
 import 'managers/database_manager.dart';
 
-late List<DateTimeRange> globalConverted = [];
+List<DateTimeRange> globalConverted = [];
 
 class AppointmentSelection extends ConsumerStatefulWidget {
   const AppointmentSelection({Key? key}) : super(key: key);
@@ -26,8 +26,7 @@ class _AppointmentSelectionState extends ConsumerState<AppointmentSelection> {
   late String globalCurrentBarbershopName;
 
   @override
-
-  void initState() {
+  void initState(){
     super.initState();
 
     appointmentBookingService = BookingService(
@@ -35,28 +34,31 @@ class _AppointmentSelectionState extends ConsumerState<AppointmentSelection> {
         userEmail: user.email,
         serviceName: 'Appointment Service',
         serviceDuration: 30,
-        bookingStart: DateTime(now.year, now.month, now.day, 0, 0),
-        bookingEnd: DateTime(now.year, now.month, now.day, 0, 0).add(const Duration(minutes: 30))
+        bookingStart: DateTime(now.year, now.month, now.day, 8, 0),
+        bookingEnd: DateTime(now.year, now.month, now.day, 18, 0)
     );
   }
 
-  Stream<dynamic>? getBookingStreamAppointment({required DateTime end, required DateTime start}) => Stream.value([]);
+  Stream<dynamic>? getBookingStreamAppointment({required DateTime start, required DateTime end}){
+    Stream<dynamic> streamToReturn = databaseRef.child("appointments").onValue;
+    return streamToReturn;
+  }
 
   Future<dynamic> uploadBookingAppointment({required BookingService newBooking}) async {
     ///database write
-    //print(currentBarbershopName);
     String currentBarbershopName = ref.watch(currentBarbershopProvider);
     String currentBarbershopAddress = ref.watch(currentAddressProvider);
     insertData(user.uid, currentBarbershopName, currentBarbershopAddress, newBooking.bookingStart, newBooking.bookingStart.add(const Duration(minutes: 30)));
     converted.add(DateTimeRange(start: newBooking.bookingStart, end: newBooking.bookingEnd));
-    //print('${newBooking.toJson()} has been uploaded');
+    print('${newBooking.toJson()} has been uploaded');
   }
 
   List<DateTimeRange> converted = [];
 
   List<DateTimeRange> convertStreamResultAppointment({required dynamic streamResult}) {
     ///database read
-    converted = globalConverted;
+    List<DateTimeRange> currentBookedHoursValue = ref.watch(currentBookedHoursProvider);
+    converted = currentBookedHoursValue;
     return converted;
   }
 
@@ -64,30 +66,28 @@ class _AppointmentSelectionState extends ConsumerState<AppointmentSelection> {
 
   @override
   Widget build(BuildContext context) {
-    final List<DateTimeRange> currentBookedHoursValue = ref.watch(currentBookedHoursProvider);
-    //final DateTime currentlySelectedDay = ref.watch(selectedDate);
-    //print(currentlySelectedDay);
-    globalConverted = currentBookedHoursValue;
+    final newTheme = Theme.of(context).textTheme.apply(
+      bodyColor: Colors.pink,
+    );
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Make an appointment'),
-      ),
-      body: Center(
-        child: BookingCalendar(
-          bookingService: appointmentBookingService,
-          convertStreamResultToDateTimeRanges: convertStreamResultAppointment,
-          getBookingStream: getBookingStreamAppointment,
-          uploadBooking: uploadBookingAppointment,
-          loadingWidget: const Center(child: CircularProgressIndicator(color: Color(0xFF1AB00A))),
-          uploadingWidget: const Center(child: CircularProgressIndicator(color: Color(0xFF1AB00A))),
-          wholeDayIsBookedWidget: const Text('Sorry, for this day everything is booked!'),
-          startingDayOfWeek: StartingDayOfWeek.monday,
-          availableSlotTextStyle: TextStyle(),
-          selectedSlotTextStyle: TextStyle(),
-          bookedSlotTextStyle: TextStyle(),
-
+        appBar: AppBar(
+          title: const Text('Make an appointment'),
         ),
-      )
+        body: Center(
+          child: BookingCalendar(
+            bookingService: appointmentBookingService,
+            convertStreamResultToDateTimeRanges: convertStreamResultAppointment,
+            getBookingStream: getBookingStreamAppointment,
+            uploadBooking: uploadBookingAppointment,
+            loadingWidget: const Center(child: CircularProgressIndicator(color: Color(0xFF1AB00A))),
+            uploadingWidget: const Center(child: CircularProgressIndicator(color: Color(0xFF1AB00A))),
+            wholeDayIsBookedWidget: const Center(child: Text('Sorry, for this day everything is booked!')),
+            startingDayOfWeek: StartingDayOfWeek.monday,
+            disabledDays: const [7],
+            hideBreakTime: true,
+            pauseSlots: const [],
+          ),
+        )
     );
   }
 

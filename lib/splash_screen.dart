@@ -25,11 +25,11 @@ class LoadingIndicatorDialog {
           return WillPopScope(
               onWillPop: () async => false,
               child:
-                  SimpleDialog(backgroundColor: Colors.transparent, children: [
+                  const SimpleDialog(backgroundColor: Colors.transparent, children: [
                 Center(
                   child: Column(
                       mainAxisSize: MainAxisSize.min,
-                      children: const [
+                      children: [
                         CircularProgressIndicator(color: Color(0xFF1AB00A))
                       ]),
                 )

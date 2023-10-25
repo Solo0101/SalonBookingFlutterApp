@@ -4,6 +4,7 @@ import 'package:test_project/card_template.dart';
 import 'package:test_project/managers/api_manager.dart';
 import 'constants/router_constants.dart';
 import 'managers/authentication_manager.dart';
+import 'managers/provider_manager.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -87,22 +88,26 @@ class _MainPageState extends State<MainPage> {
               },
             ),
             ListTile(
-              title: const Row(
+              title: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(
+                  Icon( isAdmin ? Icons.addchart_rounded :
                     Icons.calendar_month,
                     size: 24.0,
                   ),
-                  SizedBox(
+                  const SizedBox(
                       width: 5
                   ),
-                  Text('My Appointments'),
+                  Text(isAdmin ? 'Admin Dashboard' : 'My Appointments'),
                 ],
               ),
               onTap: () {
-                Navigator.of(context).pushNamed(myAppointmentsPageRoute);
-              },
+                if(isAdmin) {
+                  Navigator.of(context).pushNamed(adminDashboardPageRoute);
+                } else {
+                  Navigator.of(context).pushNamed(myAppointmentsPageRoute);
+                }
+                },
             ),
             ListTile(
               title: const Row(

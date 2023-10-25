@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_project/Constants/router_constants.dart';
 import 'package:test_project/managers/authentication_manager.dart';
-import '../Constants/router_constants.dart';
 import '../main.dart';
 
 //import 'package:provider/provider.dart';
@@ -80,10 +79,6 @@ class _LoginOrSignUpScreen extends State<CredentialView> {
                 Navigator.of(context).pushNamed(mainPageRoute);
               }
             },
-            child: Text(
-              widget.buttonTitle,
-              style: const TextStyle(color: Colors.white, fontSize: 20),
-            ),
             style: TextButton.styleFrom(
               backgroundColor: Colors.green,
               minimumSize: const Size(115, 60),
@@ -92,6 +87,10 @@ class _LoginOrSignUpScreen extends State<CredentialView> {
                   Radius.circular(35),
                 ),
               ),
+            ),
+            child: Text(
+              widget.buttonTitle,
+              style: const TextStyle(color: Colors.white, fontSize: 20),
             )),
         SizedBox(height: widget.isSignUpScreen ? 20.0 : 8.0),
         Row(
@@ -141,10 +140,10 @@ class _LoginOrSignUpScreen extends State<CredentialView> {
 }
 
 Widget setSubtitlesForLogInView() {
-  return Column(
+  return const Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: const [
+      children: [
         SizedBox(height: 20),
         Center(child: Text('Enter your email and password!')),
       ]);

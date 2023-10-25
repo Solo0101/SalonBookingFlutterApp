@@ -1,14 +1,18 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../main.dart';
 
 String snackText='';
 
+bool isAdmin = false;
+
 class AuthenticationManager {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final databaseRef = FirebaseDatabase.instance.ref();
 
   Future<bool> logInUser(String email, String password, var context) async {
     showDialog(
@@ -25,6 +29,13 @@ class AuthenticationManager {
       if(credential.user != null && credential.user?.email != null) {
         saveUserData(credential.user?.email);
       }
+      var userId = _auth.currentUser?.uid;
+      var admin = databaseRef.child("admins/$userId");
+
+      if(admin != null) {
+        isAdmin = true;
+      }
+
     } on FirebaseAuthException catch (e) {
       print(e.code);
       if (e.code == 'user-not-found') {
@@ -91,12 +102,6 @@ class AuthenticationManager {
     sharedPreferences.setString('userEmail', email!);
   }
 
-  bool isLoggedIn(SharedPreferences sharedPrefs){
-    var user = sharedPrefs.getString('userEmail');
-    print(user);
-    return user != null;
-  }
-
   Future<void> signOutUser(var context) async {
     showDialog(
         context: context,
@@ -139,7 +144,7 @@ class AuthenticationManager {
       user.updatePassword(newPassword).then((_) {
         print("Successfully changed password");
       }).catchError((error) {
-        print("Password can't be changed" + error.toString());
+        print("Password can't be changed$error");
         //This might happen, when the wrong password is in, the user isn't found, or if the user hasn't logged in recently.
       });
       navigatorKey.currentState!.pop(context);
