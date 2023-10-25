@@ -1,8 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:firebase_database/firebase_database.dart';
+
 import '../constants/app_urls.dart';
 import 'package:http/http.dart' as http;
+
+DatabaseReference barbershopsDbRef = FirebaseDatabase.instance.ref("barbershops");
 
 
 class Address {

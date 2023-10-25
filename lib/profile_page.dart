@@ -38,9 +38,9 @@ class _MyProfilePageState extends State<MyProfilePage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
             child: Column(children: [
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   Text("Change your passowrd: "),
                 ],
               ),

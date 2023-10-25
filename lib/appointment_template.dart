@@ -33,12 +33,15 @@ class AppointmentCard extends StatelessWidget {
     return GestureDetector(
       onTap: () => MapsLauncher.launchQuery(address),
       child: Card(
+        elevation: 8,
+        margin: const EdgeInsets.all(10),
         child: Container(
           height: 100,
           color: themeNotifier.value == ThemeMode.light ? Colors.grey[200] : Colors.grey[700],
           child: Row(
             children: [
               Expanded(
+                flex: 8,
                 child: Container(
                   alignment: Alignment.topLeft,
                   child: Column(
@@ -57,23 +60,14 @@ class AppointmentCard extends StatelessWidget {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(left: 16),
-                              child: Text(("DATE: " +
-                                  (bookingTime.day >= 10
+                              child: Text(("DATE: ${bookingTime.day >= 10
                                       ? bookingTime.day.toString()
-                                      : "0" + bookingTime.day.toString()) +
-                                  "." +
-                                  (bookingTime.month >= 10
+                                      : "0${bookingTime.day}"}.${bookingTime.month >= 10
                                       ? bookingTime.month.toString()
-                                      : "0" + bookingTime.month.toString()) +
-                                  "." +
-                                  bookingTime.year.toString()) +
-                                  ("\nHOUR: " +
-                                      bookingTime.hour.toString() +
-                                      ":" +
-                                      (bookingTime.minute >= 10
+                                      : "0${bookingTime.month}"}.${bookingTime.year}") +
+                                  ("\nHOUR: ${bookingTime.hour}:${bookingTime.minute >= 10
                                           ? bookingTime.minute.toString()
-                                          : "0" +
-                                          bookingTime.minute.toString()))),
+                                          : "0${bookingTime.minute}"}")),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(right: 15),
@@ -110,13 +104,10 @@ class AppointmentCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                flex: 8,
               ),
             ],
           ),
         ),
-        elevation: 8,
-        margin: const EdgeInsets.all(10),
       )
     );
   }

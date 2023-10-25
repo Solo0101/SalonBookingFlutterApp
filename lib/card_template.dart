@@ -75,10 +75,10 @@ class _CardTemplateState extends ConsumerState<CardTemplate> {
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Visibility(
-                  child: Text(widget.description,
-                      style: const TextStyle(color: Colors.grey)),
                   visible: widget.pressed[widget.id - 1],
                   replacement: const SizedBox.shrink(),
+                  child: Text(widget.description,
+                      style: const TextStyle(color: Colors.grey)),
                 )),
             ButtonBar(
               alignment: MainAxisAlignment.start,
