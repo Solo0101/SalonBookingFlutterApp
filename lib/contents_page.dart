@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test_project/card_template.dart';
 import 'package:test_project/managers/api_manager.dart';
 import 'constants/router_constants.dart';
 import 'managers/authentication_manager.dart';
-import 'managers/provider_manager.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -13,8 +13,23 @@ class MainPage extends StatefulWidget {
   State<MainPage> createState() => _MainPageState();
 }
 
+
 class _MainPageState extends State<MainPage> {
   final user = FirebaseAuth.instance.currentUser!;
+  bool _isAdmin = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadIsAdmin();
+  }
+
+  void _loadIsAdmin() async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    setState(() {
+      _isAdmin = (sharedPreferences.getBool("isAdmin"))!;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,18 +106,18 @@ class _MainPageState extends State<MainPage> {
               title: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon( isAdmin ? Icons.addchart_rounded :
+                  Icon( _isAdmin ? Icons.addchart_rounded :
                     Icons.calendar_month,
                     size: 24.0,
                   ),
                   const SizedBox(
                       width: 5
                   ),
-                  Text(isAdmin ? 'Admin Dashboard' : 'My Appointments'),
+                  Text( _isAdmin ? 'Admin Dashboard' : 'My Appointments'),
                 ],
               ),
               onTap: () {
-                if(isAdmin) {
+                if(_isAdmin) {
                   Navigator.of(context).pushNamed(adminDashboardPageRoute);
                 } else {
                   Navigator.of(context).pushNamed(myAppointmentsPageRoute);

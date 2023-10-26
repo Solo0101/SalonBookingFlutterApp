@@ -7,7 +7,6 @@ import '../main.dart';
 
 String snackText='';
 
-bool isAdmin = false;
 
 class AuthenticationManager {
 
@@ -30,10 +29,16 @@ class AuthenticationManager {
         saveUserData(credential.user?.email);
       }
       var userId = _auth.currentUser?.uid;
-      var admin = databaseRef.child("admins/$userId");
+      var admins = await databaseRef.child("admins").child(userId!).once();
+      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+      sharedPreferences.setBool("isAdmin", false);
 
-      if(admin != null) {
-        isAdmin = true;
+
+      if(admins.snapshot.value != null) {
+        sharedPreferences.setBool("isAdmin", true);
+        print(sharedPreferences.getBool("isAdmin"));
+      } else {
+        sharedPreferences.setBool("isAdmin", false);
       }
 
     } on FirebaseAuthException catch (e) {
@@ -110,6 +115,8 @@ class AuthenticationManager {
     );
     try{
       navigatorKey.currentState!.popUntil((route) => route.isFirst);
+      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+      sharedPreferences.setBool("isAdmin", false);
       return await _auth.signOut();
   } catch (e) {
       print(e);
