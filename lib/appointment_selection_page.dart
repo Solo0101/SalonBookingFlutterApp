@@ -66,9 +66,6 @@ class _AppointmentSelectionState extends ConsumerState<AppointmentSelection> {
 
   @override
   Widget build(BuildContext context) {
-    final newTheme = Theme.of(context).textTheme.apply(
-      bodyColor: Colors.pink,
-    );
     return Scaffold(
         appBar: AppBar(
           title: const Text('Make an appointment'),

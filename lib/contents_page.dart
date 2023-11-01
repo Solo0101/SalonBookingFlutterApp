@@ -31,40 +31,51 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
+  Future<void> _refreshBarbershops(BuildContext context) async {
+    setState(() => {});
+    return getBarbershops();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
       ),
-      body: FutureBuilder(
-        future: getBarbershops(),
-        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          if (snapshot.hasData) {
-            List<Barbershop> barbershops = snapshot.data;
-            return ListView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              itemCount: barbershops.length,
-              itemBuilder: (context, index) {
-                var item = barbershops[index];
-                List<bool> pressed = List.filled(barbershops.length, false, growable: false);
-                return Container(
-                    margin: const EdgeInsets.only(top: 15),
-                    child: CardTemplate(
-                      pressed: pressed,
-                      id: item.id,
-                      name: item.name,
-                      address: item.address,
-                      description: item.description,
-                      presentationImage: item.image,
-                      phoneNumber: item.phoneNumber,
-                    ));
-              },
-            );
-          } else {
-            return const Center(child: CircularProgressIndicator(color: Color(0xFF1AB00A)));
-          }
-        },
+      body: RefreshIndicator(
+        onRefresh: () => _refreshBarbershops(context),
+        child: FutureBuilder(
+          future: getBarbershops(),
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            if (snapshot.hasData) {
+              List<Barbershop> barbershops = snapshot.data;
+              return ListView.builder(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                itemCount: barbershops.length,
+                itemBuilder: (context, index) {
+                  var item = barbershops[index];
+                  List<bool> pressed = List.filled(barbershops.length, false, growable: false);
+                  return Container(
+                      margin: const EdgeInsets.only(top: 15),
+                      child: CardTemplate(
+                        pressed: pressed,
+                        id: item.id,
+                        name: item.name,
+                        address: item.address,
+                        description: item.description,
+                        presentationImage: item.image,
+                        phoneNumber: item.phoneNumber,
+                        index: index,
+                      ));
+                },
+              );
+            } else if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              return const Center(child: CircularProgressIndicator(color: Color(0xFF1AB00A)));
+            }
+          },
+        ),
       ),
 
       drawer: Drawer(

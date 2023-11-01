@@ -19,16 +19,18 @@ class CardTemplate extends ConsumerStatefulWidget {
       required this.address,
       required this.description,
       required this.presentationImage,
-      required this.phoneNumber
+      required this.phoneNumber,
+      required this.index
   }): super(key: key);
 
   final List<bool> pressed;
-  final int id;
+  final String id;
   final String name;
   final String address;
   final String description;
   final String presentationImage;
   final String phoneNumber;
+  final int index;
 
   @override
   ConsumerState<CardTemplate> createState() => _CardTemplateState();
@@ -56,12 +58,15 @@ class _CardTemplateState extends ConsumerState<CardTemplate> {
           children: [
             const Padding(padding: EdgeInsets.only(top: 15)),
             ListTile(
-              leading: IconButton(
-                onPressed: () => setState(() => widget.pressed[widget.id - 1] =
-                    !widget.pressed[widget.id - 1]),
-                icon: Icon(widget.pressed[widget.id - 1]
-                    ? Icons.arrow_drop_up_sharp
-                    : Icons.arrow_drop_down_sharp),
+              leading: Visibility(
+                visible: widget.description != '',
+                child: IconButton(
+                  onPressed: () => setState(() => widget.pressed[widget.index] =
+                      !widget.pressed[widget.index]),
+                  icon: Icon(widget.pressed[widget.index]
+                      ? Icons.arrow_drop_up_sharp
+                      : Icons.arrow_drop_down_sharp),
+                ),
               ),
               title: Text(widget.name),
               subtitle: TextButton(
@@ -75,7 +80,7 @@ class _CardTemplateState extends ConsumerState<CardTemplate> {
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Visibility(
-                  visible: widget.pressed[widget.id - 1],
+                  visible: widget.pressed[widget.index],
                   replacement: const SizedBox.shrink(),
                   child: Text(widget.description,
                       style: const TextStyle(color: Colors.grey)),

@@ -4,25 +4,13 @@ import 'dart:convert';
 import 'package:firebase_database/firebase_database.dart';
 
 import '../constants/app_urls.dart';
+import 'database_manager.dart';
 import 'package:http/http.dart' as http;
 
 DatabaseReference barbershopsDbRef = FirebaseDatabase.instance.ref("barbershops");
 
-
-class Address {
-  late String streetAddress;
-  late String numberAddress;
-  late String city;
-
-  Address({
-    required this.streetAddress,
-    required this.numberAddress,
-    required this.city
-  });
-}
-
 class Barbershop {
-  late int id;
+  late String id;
   late String name;
   late String gender;
   late String address;
@@ -40,10 +28,11 @@ class Barbershop {
     required this.image
   });
 
-  factory Barbershop.fromJson(Map<String, dynamic> json) {
+
+  factory Barbershop.fromJson(Map<String, dynamic> json, String key) {
     return Barbershop(
-      id: json['id'] as int,
-      name: json['Name'] as String,
+      id: key,
+      name: json['name'] as String,
       gender: json['gender'] as String,
       address: json['address'] as String,
       description: json['description'] as String,
@@ -54,15 +43,20 @@ class Barbershop {
 }
 
 List<Barbershop> parseBarbershops(String responseBody){
-  final parsed = jsonDecode(responseBody)['results'].cast<Map<String, dynamic>>();
-  return parsed.map<Barbershop>((json) => Barbershop.fromJson(json)).toList();
+  final Map<String, dynamic> parsed = jsonDecode(responseBody);
+  List<Barbershop> barbershopsData = [];
+  for (var key in parsed.keys) {
+    barbershopsData.add(Barbershop.fromJson(parsed[key], key));
+  }
+  return barbershopsData;
 }
 
-Future<List<Barbershop>> getBarbershops() async {
+Future getBarbershops() async {
   Uri url = Uri.parse(AppUrls.barbershopListURL);
   var response = await http.get(url);
   if(response.statusCode == 200){
     return parseBarbershops(response.body);
+  } else {
+    throw Exception('Unable to fetch data from te REST API!');
   }
-  return [];
 }

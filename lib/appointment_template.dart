@@ -80,9 +80,7 @@ class AppointmentCard extends StatelessWidget {
                                 child: const Text("CANCEL",
                                     style: TextStyle(color: Colors.white)),
                                 onPressed: () async {
-                                  /* LoadingIndicatorDialog().show(context);*/
                                   deleteAppointmentsWithId(appointmentId);
-                                  /* LoadingIndicatorDialog().dismiss();*/
                                   appointmentsList
                                       .removeAt(appointmentCurrentIndex);
                                   Navigator.pushReplacement(
@@ -93,7 +91,7 @@ class AppointmentCard extends StatelessWidget {
                                       const MyAppointmentsPage(),
                                       transitionDuration: Duration.zero,
                                       reverseTransitionDuration: Duration.zero,
-                                    ),
+                                    )
                                   );
                                 },
                               ),
