@@ -170,7 +170,9 @@ class _MainPageState extends State<MainPage> {
               onTap: () async {
                 await AuthenticationManager().signOutUser(context);
                 SnackBar snackBar = const SnackBar(content: Text('Signed out!'));
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }
               },
             ),
           ],

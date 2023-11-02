@@ -100,7 +100,9 @@ class _CardTemplateState extends ConsumerState<CardTemplate> {
                     await getBarbershopAppointmentsData(widget.name, converted);
                     ref.read(currentBookedHoursProvider.notifier).state = converted;
                     LoadingIndicatorDialog().dismiss();
-                    Navigator.of(context).pushNamed(appointmentSelectionPageRoute);
+                    if (context.mounted) {
+                      Navigator.of(context).pushNamed(appointmentSelectionPageRoute);
+                    }
                     },
                   child: const Text(
                     'Make an appointment',

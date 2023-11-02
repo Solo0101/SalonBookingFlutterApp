@@ -147,7 +147,9 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                                             var snackBar = SnackBar(
                                               content: Text(snackbarText),
                                             );
-                                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                            if (context.mounted) {
+                                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                            }
                                           },
                                         style: ButtonStyle(
                                           padding: MaterialStateProperty.all(EdgeInsets.zero),
@@ -183,6 +185,7 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                               child: AdminCardTemplate(
                               id: item.id,
                               name: item.name,
+                              gender: item.gender,
                               address: item.address,
                               description: item.description,
                               presentationImage: item.image,

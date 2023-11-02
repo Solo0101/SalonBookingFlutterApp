@@ -70,9 +70,13 @@ class _LoginOrSignUpScreen extends State<CredentialView> {
               bool isValid = await validateFields(
                   emailController.text.trim(), passwordController.text.trim());
               SnackBar snackBar = SnackBar(content: Text(snackText));
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
               if (isValid == true) {
-                Navigator.of(context).pushNamed(mainPageRoute);
+                if (context.mounted) {
+                  Navigator.of(context).pushNamed(mainPageRoute);
+                }
               }
             },
             style: TextButton.styleFrom(
