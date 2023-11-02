@@ -3,25 +3,21 @@ import 'package:test_project/Constants/router_constants.dart';
 import 'package:test_project/managers/authentication_manager.dart';
 import '../main.dart';
 
-//import 'package:provider/provider.dart';
-
 class CredentialView extends StatefulWidget {
   final String screenTitle;
   final String buttonTitle;
   final bool isSignUpScreen;
   //late final Color _textColor;
 
-  CredentialView({
+  const CredentialView({
     Key? key,
     required this.screenTitle,
     required this.buttonTitle,
     required this.isSignUpScreen,
-  }) : super(key: key) {
-    //_textColor = isSignUpScreen ? Colors.grey : Colors.white;
-  }
+  }) : super(key: key);
 
   @override
-  _LoginOrSignUpScreen createState() => _LoginOrSignUpScreen();
+  State<CredentialView> createState() => _LoginOrSignUpScreen();
 }
 
 class _LoginOrSignUpScreen extends State<CredentialView> {
@@ -74,9 +70,13 @@ class _LoginOrSignUpScreen extends State<CredentialView> {
               bool isValid = await validateFields(
                   emailController.text.trim(), passwordController.text.trim());
               SnackBar snackBar = SnackBar(content: Text(snackText));
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
               if (isValid == true) {
-                Navigator.of(context).pushNamed(mainPageRoute);
+                if (context.mounted) {
+                  Navigator.of(context).pushNamed(mainPageRoute);
+                }
               }
             },
             style: TextButton.styleFrom(

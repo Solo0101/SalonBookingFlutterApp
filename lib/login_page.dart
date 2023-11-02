@@ -17,8 +17,8 @@ class _LoginPageState extends State<LoginPage> {
           constraints: BoxConstraints(
             maxHeight: MediaQuery.of(context).size.height,
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          child: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30.0),
             child: CredentialView(
               screenTitle: 'Log In',
               buttonTitle: 'Log In',

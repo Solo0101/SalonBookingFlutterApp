@@ -1,7 +1,7 @@
 import 'dart:async';
 
-// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
@@ -23,6 +23,9 @@ class Appointment {
   });
 }
 
+
+/// Handler functions for appointments
+
 Future<void> insertData(String userId, String barbershopName, String address, DateTime bookingTime, DateTime bookingEndTime) async {
   final appointmentId = const Uuid().v5(Uuid.NAMESPACE_URL, barbershopName + bookingTime.millisecondsSinceEpoch.toString());
   try {
@@ -33,11 +36,16 @@ Future<void> insertData(String userId, String barbershopName, String address, Da
       'bookingTime': bookingTime.millisecondsSinceEpoch,
       'bookingEndTime': bookingEndTime.millisecondsSinceEpoch
     });
-    print("Added to database");
+    if (kDebugMode) {
+      print("Added to database");
+    }
   } catch (e) {
-    print("Error! $e");
+    if (kDebugMode) {
+      print("Error! $e");
+    }
   }
 }
+
 
 Future<void> deletePastAppointmentsFromDb() async{
   databaseRef.child("appointments").get().then((snapshot) {
@@ -93,4 +101,82 @@ Future<List<Appointment>> getUserAppointmentsData (String userId) async{
   return myAppointments;
 }
 
+/// Handler functions for Barbershops
+
+Future<int> insertBarbershop(String barbershopName, String address, String gender, String description, String phoneNumber, String image) async {
+  final barbershopId = const Uuid().v5(Uuid.NAMESPACE_URL, barbershopName + address);
+  try {
+    if (barbershopName.isNotEmpty &&
+        address.isNotEmpty &&
+        phoneNumber.isNotEmpty &&
+        image.isNotEmpty){
+        if(gender.isEmpty){
+          gender = "any";
+        }
+        await databaseRef.child("barbershops/$barbershopId").set({
+          'name': barbershopName,
+          'address': address,
+          'gender': gender,
+          'description': description,
+          'phoneNumber': phoneNumber,
+          'image': image
+        });
+      if (kDebugMode) {
+        print("Added to database");
+      }
+      return Future.value(0);
+    } else {
+      return Future.value(1);
+    }
+  } catch (e) {
+    if (kDebugMode) {
+      print("Error! $e");
+    }
+    return  Future.value(2);
+  }
+}
+
+Future<int> editBarbershop(String barbershopId, String barbershopName, String address, String gender, String description, String phoneNumber, String image) async {
+  try {
+    if (barbershopName.isNotEmpty &&
+        address.isNotEmpty &&
+        phoneNumber.isNotEmpty &&
+        image.isNotEmpty){
+      if(gender.isEmpty){
+        gender = "any";
+      }
+      await databaseRef.child("barbershops/$barbershopId").set({
+        'name': barbershopName,
+        'address': address,
+        'gender': gender,
+        'description': description,
+        'phoneNumber': phoneNumber,
+        'image': image
+      });
+      if (kDebugMode) {
+        print("Added to database");
+      }
+      return Future.value(0);
+    } else {
+      return Future.value(1);
+    }
+  } catch (e) {
+    if (kDebugMode) {
+      print("Error! $e");
+    }
+    return  Future.value(2);
+  }
+}
+
+Future<int> deleteBarbershop(String barbershopId) async{
+  try {
+    databaseRef.child("barbershops/$barbershopId").remove();
+    return Future.value(1);
+  } catch (e) {
+    if (kDebugMode) {
+      print("Error! $e");
+    }
+    return Future.value(0);
+  }
+}
 

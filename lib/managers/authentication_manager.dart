@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../main.dart';
 
 String snackText='';
 
-bool isAdmin = false;
 
 class AuthenticationManager {
 
@@ -30,34 +30,52 @@ class AuthenticationManager {
         saveUserData(credential.user?.email);
       }
       var userId = _auth.currentUser?.uid;
-      var admin = databaseRef.child("admins/$userId");
+      var admins = await databaseRef.child("admins").child(userId!).once();
+      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+      sharedPreferences.setBool("isAdmin", false);
 
-      if(admin != null) {
-        isAdmin = true;
+
+      if(admins.snapshot.value != null) {
+        sharedPreferences.setBool("isAdmin", true);
+        if (kDebugMode) {
+          print(sharedPreferences.getBool("isAdmin"));
+        }
+      } else {
+        sharedPreferences.setBool("isAdmin", false);
       }
 
     } on FirebaseAuthException catch (e) {
-      print(e.code);
+      if (kDebugMode) {
+        print(e.code);
+      }
       if (e.code == 'user-not-found') {
         navigatorKey.currentState!.pop(context);
         snackText='No user found for that email.';
-        print('No user found for that email.');
+        if (kDebugMode) {
+          print('No user found for that email.');
+        }
         return false;
       } else if (e.code == 'invalid-email') {
         navigatorKey.currentState!.pop(context);
         snackText='Invalid email.';
-        print('Invalid email.');
+        if (kDebugMode) {
+          print('Invalid email.');
+        }
         return false;
       } else if (e.code == 'wrong-password') {
         navigatorKey.currentState!.pop(context);
         snackText='Wrong password provided for that user.';
-        print('Wrong password provided for that user.');
+        if (kDebugMode) {
+          print('Wrong password provided for that user.');
+        }
         return false;
       }
     }
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
     snackText='Logged in!';
-    print('Logged in!');
+    if (kDebugMode) {
+      print('Logged in!');
+    }
     return true;
   }
 
@@ -80,20 +98,28 @@ class AuthenticationManager {
       if (e.code == 'weak-password') {
         navigatorKey.currentState!.pop(context);
         snackText='Password is to weak.';
-        print('Password is to weak.');
+        if (kDebugMode) {
+          print('Password is to weak.');
+        }
         return Future.value(false);
       } else if (e.code == 'email-already-in-use') {
         navigatorKey.currentState!.pop(context);
         snackText='The account already exists for that email.';
-        print('The account already exists for that email.');
+        if (kDebugMode) {
+          print('The account already exists for that email.');
+        }
         return Future.value(false);
       }
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
     snackText='Registered successfully!';
-    print('Registered successfully!');
+    if (kDebugMode) {
+      print('Registered successfully!');
+    }
     return Future.value(true);
   }
 
@@ -110,9 +136,13 @@ class AuthenticationManager {
     );
     try{
       navigatorKey.currentState!.popUntil((route) => route.isFirst);
+      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+      sharedPreferences.setBool("isAdmin", false);
       return await _auth.signOut();
   } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -132,24 +162,34 @@ class AuthenticationManager {
       if (e.code == 'wrong-password') {
         navigatorKey.currentState!.pop(context);
         snackText = 'Wrong password provided for that user.';
-        print('Wrong password provided for that user.');
+        if (kDebugMode) {
+          print('Wrong password provided for that user.');
+        }
         return;
       }
     }
     if(password == newPassword){
       navigatorKey.currentState!.pop(context);
       snackText = 'The new password has to be different from the old password!';
-      print('The new password has to be different from the old password!');
+      if (kDebugMode) {
+        print('The new password has to be different from the old password!');
+      }
     }else {
       user.updatePassword(newPassword).then((_) {
-        print("Successfully changed password");
+        if (kDebugMode) {
+          print("Successfully changed password");
+        }
       }).catchError((error) {
-        print("Password can't be changed$error");
+        if (kDebugMode) {
+          print("Password can't be changed$error");
+        }
         //This might happen, when the wrong password is in, the user isn't found, or if the user hasn't logged in recently.
       });
       navigatorKey.currentState!.pop(context);
       snackText = 'Password reseted successfully!';
-      print('Password reseted successfully!');
+      if (kDebugMode) {
+        print('Password reseted successfully!');
+      }
     }
   }
 
@@ -165,10 +205,14 @@ class AuthenticationManager {
       user.delete();
       signOutUser(context);
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
     snackText = 'Account successfully deleted!';
-    print('Account successfully deleted!');
+    if (kDebugMode) {
+      print('Account successfully deleted!');
+    }
   }
 
 }

@@ -18,8 +18,8 @@ class _RegisterPageState extends State<RegisterPage> {
           constraints: BoxConstraints(
             maxHeight: MediaQuery.of(context).size.height,
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          child: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30.0),
             child: CredentialView(
               screenTitle: 'Sign In',
               buttonTitle: 'Register',

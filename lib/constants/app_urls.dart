@@ -1,4 +1,3 @@
 class AppUrls{
-  static const String barbershopListURL = 'https://raw.githubusercontent.com/Solo0101/SalonBookingFlutterApp/fix-booking-calendar/lib/api/barbershops.json';
-  // static const String barbershopListURL = '../api/barbershops.json';
+  static const String barbershopListURL = 'https://flutter-away-cde1f-default-rtdb.europe-west1.firebasedatabase.app/barbershops.json';
 }

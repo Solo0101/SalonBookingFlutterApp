@@ -95,7 +95,9 @@ class _MyProfilePageState extends State<MyProfilePage> {
                             newPasswordController.text.trim(),
                             context);
                         SnackBar snackBar = SnackBar(content: Text(snackText));
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        }
                         currentPasswordController.clear();
                         newPasswordController.clear();
                       }))
@@ -115,7 +117,9 @@ class _MyProfilePageState extends State<MyProfilePage> {
                       onPressed: () async {
                         await authenticationManager.deleteAccount(context);
                         SnackBar snackBar = SnackBar(content: Text(snackText));
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        }
                       }
                   )
                 ],

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,7 +26,9 @@ Future<void> main() async {
 
   Timer.periodic(const Duration(minutes: 31), (Timer timer) {
     deletePastAppointmentsFromDb();
-    print("Deleted past appointments from Database!");
+    if (kDebugMode) {
+      print("Deleted past appointments from Database!");
+    }
   });
 
   runApp(const ProviderScope(child: MyApp()));

@@ -1,5 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:booking_calendar/booking_calendar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -50,7 +51,9 @@ class _AppointmentSelectionState extends ConsumerState<AppointmentSelection> {
     String currentBarbershopAddress = ref.watch(currentAddressProvider);
     insertData(user.uid, currentBarbershopName, currentBarbershopAddress, newBooking.bookingStart, newBooking.bookingStart.add(const Duration(minutes: 30)));
     converted.add(DateTimeRange(start: newBooking.bookingStart, end: newBooking.bookingEnd));
-    print('${newBooking.toJson()} has been uploaded');
+    if (kDebugMode) {
+      print('${newBooking.toJson()} has been uploaded');
+    }
   }
 
   List<DateTimeRange> converted = [];
@@ -66,9 +69,6 @@ class _AppointmentSelectionState extends ConsumerState<AppointmentSelection> {
 
   @override
   Widget build(BuildContext context) {
-    final newTheme = Theme.of(context).textTheme.apply(
-      bodyColor: Colors.pink,
-    );
     return Scaffold(
         appBar: AppBar(
           title: const Text('Make an appointment'),
