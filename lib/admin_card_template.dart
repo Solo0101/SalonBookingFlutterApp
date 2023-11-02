@@ -58,212 +58,212 @@ class _AdminCardTemplateState extends ConsumerState<AdminCardTemplate> {
         elevation: 5,
         clipBehavior: Clip.antiAlias,
         child: Column(
-          children: [
-            Row(
-              children: [
-                Flexible(
-                  flex: 6,
-                  child: ListTile(
-                    title: Text(widget.name),
-                  ),
+        children: [
+          Row(
+            children: [
+              Flexible(
+                flex: 6,
+                child: ListTile(
+                  title: Text(widget.name),
                 ),
-                Flexible(
-                  flex: 2,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: SizedBox(
-                      width: 35,
-                      child: ElevatedButton(
-                        onPressed: () => setState(() {
-                            pressEdit=!pressEdit;
-                        }),
-                        style: ButtonStyle(
-                          padding: MaterialStateProperty.all(EdgeInsets.zero),
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.cyan),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
+              ),
+              Flexible(
+                flex: 2,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: SizedBox(
+                    width: 35,
+                    child: ElevatedButton(
+                      onPressed: () => setState(() {
+                          pressEdit=!pressEdit;
+                      }),
+                      style: ButtonStyle(
+                        padding: MaterialStateProperty.all(EdgeInsets.zero),
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.cyan),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
                           ),
                         ),
-                        child: const Icon( Icons.edit ),
                       ),
+                      child: const Icon( Icons.edit ),
                     ),
                   ),
                 ),
-                Flexible(
-                  flex: 2,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: SizedBox(
-                      width: 35,
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          int code = await deleteBarbershop(widget.id);
-                          String snackbarText = '';
-                          if(code == 1) {
-                            snackbarText = 'Barbershop successfully removed!';
-                          } else {
-                            snackbarText = 'Error! Could not remove barbershop!';
-                          }
-                          if (context.mounted) {
-                            Navigator.pushReplacement(
-                                context,
-                                PageRouteBuilder(
-                                  pageBuilder:
-                                      (context, animation1, animation2) =>
-                                  const AdminDashboardPage(),
-                                  transitionDuration: Duration.zero,
-                                  reverseTransitionDuration: Duration.zero,
-                                )
-                            );
-                          }
-                          var snackBar = SnackBar(
-                            content: Text(snackbarText),
+              ),
+              Flexible(
+                flex: 2,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: SizedBox(
+                    width: 35,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        int code = await deleteBarbershop(widget.id);
+                        String snackbarText = '';
+                        if(code == 1) {
+                          snackbarText = 'Barbershop successfully removed!';
+                        } else {
+                          snackbarText = 'Error! Could not remove barbershop!';
+                        }
+                        if (context.mounted) {
+                          Navigator.pushReplacement(
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder:
+                                    (context, animation1, animation2) =>
+                                const AdminDashboardPage(),
+                                transitionDuration: Duration.zero,
+                                reverseTransitionDuration: Duration.zero,
+                              )
                           );
-                          if (context.mounted) {
-                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                          }
-                        },
-                        style: ButtonStyle(
-                          padding: MaterialStateProperty.all(EdgeInsets.zero),
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
+                        }
+                        var snackBar = SnackBar(
+                          content: Text(snackbarText),
+                        );
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        }
+                      },
+                      style: ButtonStyle(
+                        padding: MaterialStateProperty.all(EdgeInsets.zero),
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
                           ),
                         ),
-                        child: const Icon( Icons.delete_forever ),
                       ),
+                      child: const Icon( Icons.delete_forever ),
                     ),
                   ),
-                )
-              ],
-            ),
-            Visibility(
-                visible: pressEdit,
-                child: Center(
-                    child: Card(
-                        elevation: 5,
-                        clipBehavior: Clip.antiAlias,
-                        child: Padding(
-                          padding: const EdgeInsets.all(15),
-                          child: Column(
-                              children: [
-                                const Padding(padding: EdgeInsets.only(top: 15)),
-                                const Text("Edit: "),
-                                TextField(
-                                  controller: nameController = TextEditingController(text: widget.name),
-                                  cursorColor: themeNotifier.value == ThemeMode.light ? Colors.black : Colors.white,
-                                  textInputAction: TextInputAction.next,
-                                  decoration: const InputDecoration(labelText: 'Name*'),
-                                ),
-                                TextField(
-                                  controller: genderController = TextEditingController(text: widget.gender),
-                                  cursorColor: themeNotifier.value == ThemeMode.light ? Colors.black : Colors.white,
-                                  textInputAction: TextInputAction.next,
-                                  decoration: const InputDecoration(labelText: 'Gender (Default "any")'),
-                                ),
-                                TextField(
-                                  controller: addressController = TextEditingController(text: widget.address),
-                                  cursorColor: themeNotifier.value == ThemeMode.light ? Colors.black : Colors.white,
-                                  textInputAction: TextInputAction.next,
-                                  decoration: const InputDecoration(labelText: 'Address*'),
-                                ),
-                                TextField(
-                                  controller: descriptionController = TextEditingController(text: widget.description),
-                                  cursorColor: themeNotifier.value == ThemeMode.light ? Colors.black : Colors.white,
-                                  textInputAction: TextInputAction.next,
-                                  decoration: const InputDecoration(labelText: 'Description'),
-                                ),
-                                TextField(
-                                  controller: phoneNumberController = TextEditingController(text: widget.phoneNumber),
-                                  cursorColor: themeNotifier.value == ThemeMode.light ? Colors.black : Colors.white,
-                                  textInputAction: TextInputAction.next,
-                                  decoration: const InputDecoration(labelText: 'Tel.*'),
-                                ),
-                                TextField(
-                                  controller: imageController = TextEditingController(text: widget.presentationImage),
-                                  cursorColor: themeNotifier.value == ThemeMode.light ? Colors.black : Colors.white,
-                                  textInputAction: TextInputAction.next,
-                                  decoration: const InputDecoration(labelText: 'Image link*'),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 20.0),
-                                  child: SizedBox(
-                                    width: 100,
-                                    child: ElevatedButton(
-                                      onPressed: () async {
-                                        String snackbarText = '';
-                                        switch(await editBarbershop(
-                                          widget.id,
-                                          nameController.text.trim(),
-                                          addressController.text.trim(),
-                                          genderController.text.trim(),
-                                          descriptionController.text.trim(),
-                                          phoneNumberController.text.trim(),
-                                          imageController.text.trim(),
-                                        )) {
-                                          case 0:
-                                            FocusManager.instance.primaryFocus?.unfocus();
-                                            setState(() => pressEdit = !pressEdit);
-                                            nameController.clear();
-                                            genderController.clear();
-                                            addressController.clear();
-                                            descriptionController.clear();
-                                            phoneNumberController.clear();
-                                            imageController.clear();
-                                            snackbarText = 'Barbershop edited successfully!';
-                                            break;
-                                          case 1:
-                                            snackbarText = 'All fields with ending with "*" must be completed!';
-                                            break;
-                                          case 2:
-                                            snackbarText = 'An error has occurred with editing the barbershop!';
-                                            break;
-                                        }
-                                        var snackBar = SnackBar(
-                                          content: Text(snackbarText),
+                ),
+              )
+            ],
+          ),
+          Visibility(
+              visible: pressEdit,
+              child: Center(
+                  child: Card(
+                      elevation: 5,
+                      clipBehavior: Clip.antiAlias,
+                      child: Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: Column(
+                            children: [
+                              const Padding(padding: EdgeInsets.only(top: 15)),
+                              const Text("Edit: "),
+                              TextField(
+                                controller: nameController = TextEditingController(text: widget.name),
+                                cursorColor: themeNotifier.value == ThemeMode.light ? Colors.black : Colors.white,
+                                textInputAction: TextInputAction.next,
+                                decoration: const InputDecoration(labelText: 'Name*'),
+                              ),
+                              TextField(
+                                controller: genderController = TextEditingController(text: widget.gender),
+                                cursorColor: themeNotifier.value == ThemeMode.light ? Colors.black : Colors.white,
+                                textInputAction: TextInputAction.next,
+                                decoration: const InputDecoration(labelText: 'Gender (Default "any")'),
+                              ),
+                              TextField(
+                                controller: addressController = TextEditingController(text: widget.address),
+                                cursorColor: themeNotifier.value == ThemeMode.light ? Colors.black : Colors.white,
+                                textInputAction: TextInputAction.next,
+                                decoration: const InputDecoration(labelText: 'Address*'),
+                              ),
+                              TextField(
+                                controller: descriptionController = TextEditingController(text: widget.description),
+                                cursorColor: themeNotifier.value == ThemeMode.light ? Colors.black : Colors.white,
+                                textInputAction: TextInputAction.next,
+                                decoration: const InputDecoration(labelText: 'Description'),
+                              ),
+                              TextField(
+                                controller: phoneNumberController = TextEditingController(text: widget.phoneNumber),
+                                cursorColor: themeNotifier.value == ThemeMode.light ? Colors.black : Colors.white,
+                                textInputAction: TextInputAction.next,
+                                decoration: const InputDecoration(labelText: 'Tel.*'),
+                              ),
+                              TextField(
+                                controller: imageController = TextEditingController(text: widget.presentationImage),
+                                cursorColor: themeNotifier.value == ThemeMode.light ? Colors.black : Colors.white,
+                                textInputAction: TextInputAction.next,
+                                decoration: const InputDecoration(labelText: 'Image link*'),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 20.0),
+                                child: SizedBox(
+                                  width: 100,
+                                  child: ElevatedButton(
+                                    onPressed: () async {
+                                      String snackbarText = '';
+                                      switch(await editBarbershop(
+                                        widget.id,
+                                        nameController.text.trim(),
+                                        addressController.text.trim(),
+                                        genderController.text.trim(),
+                                        descriptionController.text.trim(),
+                                        phoneNumberController.text.trim(),
+                                        imageController.text.trim(),
+                                      )) {
+                                        case 0:
+                                          FocusManager.instance.primaryFocus?.unfocus();
+                                          setState(() => pressEdit = !pressEdit);
+                                          nameController.clear();
+                                          genderController.clear();
+                                          addressController.clear();
+                                          descriptionController.clear();
+                                          phoneNumberController.clear();
+                                          imageController.clear();
+                                          snackbarText = 'Barbershop edited successfully!';
+                                          break;
+                                        case 1:
+                                          snackbarText = 'All fields with ending with "*" must be completed!';
+                                          break;
+                                        case 2:
+                                          snackbarText = 'An error has occurred with editing the barbershop!';
+                                          break;
+                                      }
+                                      var snackBar = SnackBar(
+                                        content: Text(snackbarText),
+                                      );
+
+                                      if (context.mounted) {
+                                        Navigator.pushReplacement(
+                                            context,
+                                            PageRouteBuilder(
+                                              pageBuilder:
+                                                  (context, animation1, animation2) =>
+                                              const AdminDashboardPage(),
+                                              transitionDuration: Duration.zero,
+                                              reverseTransitionDuration: Duration.zero,
+                                            )
                                         );
+                                      }
 
-                                        if (context.mounted) {
-                                          Navigator.pushReplacement(
-                                              context,
-                                              PageRouteBuilder(
-                                                pageBuilder:
-                                                    (context, animation1, animation2) =>
-                                                const AdminDashboardPage(),
-                                                transitionDuration: Duration.zero,
-                                                reverseTransitionDuration: Duration.zero,
-                                              )
-                                          );
-                                        }
-
-                                        if (context.mounted) {
-                                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                        }
-                                      },
-                                      style: ButtonStyle(
-                                        padding: MaterialStateProperty.all(EdgeInsets.zero),
-                                        backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
-                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(5),
-                                          ),
+                                      if (context.mounted) {
+                                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                      }
+                                    },
+                                    style: ButtonStyle(
+                                      padding: MaterialStateProperty.all(EdgeInsets.zero),
+                                      backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(5),
                                         ),
                                       ),
-                                      child: const Text("Save"),
                                     ),
+                                    child: const Text("Save"),
                                   ),
-                                )
-                              ]),
-                        )
-                    )
-                )
-            )
-          ],
-        ),
+                                ),
+                              )
+                            ]),
+                      )
+                  )
+              )
+          )
+          ]
+          ),
       ),
     );
   }

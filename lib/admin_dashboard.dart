@@ -31,6 +31,8 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
           title: const Text('Admin Dashboard'),
         ),
         body: ListView(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
             padding: const EdgeInsets.all(15),
             children: [
                 const Center(
@@ -176,6 +178,7 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                       List<Barbershop> barbershops = snapshot.data;
                       return ListView.builder(
                         shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         itemCount: barbershops.length,
                         itemBuilder: (context, index) {
